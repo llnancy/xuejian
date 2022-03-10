@@ -10,6 +10,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <modules>
         <module>oxygen-helloworld</module>
+        <module>oxygen-mybatis-plus</module>
     </modules>
 
     <properties>
