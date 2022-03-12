@@ -5,6 +5,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 
 /**
+ * mybatis-plus 启动器
+ *
  * @author sunchaser admin@lilu.org.cn
  * @since JDK8 2022/3/10
  */

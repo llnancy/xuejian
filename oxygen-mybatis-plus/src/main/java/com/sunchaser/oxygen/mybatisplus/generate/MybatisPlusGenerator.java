@@ -3,13 +3,15 @@ package com.sunchaser.oxygen.mybatisplus.generate;
 import com.baomidou.mybatisplus.generator.FastAutoGenerator;
 import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
 import com.baomidou.mybatisplus.generator.config.GlobalConfig;
-import com.baomidou.mybatisplus.generator.config.TemplateType;
+import com.baomidou.mybatisplus.generator.config.OutputFile;
 import com.baomidou.mybatisplus.generator.config.converts.MySqlTypeConvert;
+import com.baomidou.mybatisplus.generator.config.rules.DateType;
 import com.baomidou.mybatisplus.generator.config.rules.IColumnType;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
 import com.baomidou.mybatisplus.generator.keywords.MySqlKeyWordsHandler;
 
 import java.time.LocalDate;
+import java.util.Collections;
 
 import static com.baomidou.mybatisplus.generator.config.rules.DbColumnType.INTEGER;
 
@@ -37,8 +39,9 @@ public class MybatisPlusGenerator {
                 )
                 .globalConfig(builder -> {
                     builder.author("sunchaser admin@lilu.org.cn") // 设置类文件头部注释的作者
-                            .fileOverride() // 覆盖已生成文件（即将过时）
+                            .fileOverride() // 覆盖已生成文件（即将过时）3.5.2版本不会进行覆盖
                             .commentDate(() -> "JDK8 " + LocalDate.now()) // 设置类文件头部注释的时间
+                            .dateType(DateType.TIME_PACK) //使用Java8的新时间类型LocalDateTime
                             .outputDir("./sunchaser-oxygen/oxygen-mybatis-plus/src/main/java"); // 指定输出目录（相对or绝对路径均可）
                 })
                 .packageConfig(builder -> {
@@ -46,7 +49,8 @@ public class MybatisPlusGenerator {
                             .moduleName("mybatisplus") // 设置父包模块名
                             .entity("repository.entity") // entity包名
                             .mapper("repository.mapper") // mapper包名
-                            .controller("web.controller"); // controller包名
+                            .controller("web.controller") // controller包名
+                            .pathInfo(Collections.singletonMap(OutputFile.xml, "./sunchaser-oxygen/oxygen-mybatis-plus/src/main/resources/mapper")); // 指定xml文件生成的路径
                 })
                 .strategyConfig(builder -> {
                     builder.addInclude("mp_user") // 设置需要生成的表名
@@ -62,8 +66,7 @@ public class MybatisPlusGenerator {
                             .formatServiceFileName("%sService");// service接口前面不带I
                 })
                 .templateConfig(builder -> {
-                    builder.disable(TemplateType.XML) //不生成xml
-                            .entity("/templates/entity.java") // 配置自定义的entity模板位置（不用带.ftl模板引擎后缀名），使用@Data注解
+                    builder.entity("/templates/entity.java") // 配置自定义的entity模板位置（不用带.ftl模板引擎后缀名），使用@Data注解
                             .mapper("/templates/mapper.java") // 自定义mapper模板位置，去掉默认的<p></p>标签
                             .service("/templates/service.java") // 自定义service模板位置，去掉默认的<p></p>标签
                             .serviceImpl("/templates/serviceImpl.java") // 自定义serviceImpl模板位置，去掉默认的<p></p>标签
@@ -71,6 +74,5 @@ public class MybatisPlusGenerator {
                 })
                 .templateEngine(new FreemarkerTemplateEngine()) // 使用Freemarker引擎模板，默认的是Velocity引擎模板
                 .execute();
-
     }
 }
