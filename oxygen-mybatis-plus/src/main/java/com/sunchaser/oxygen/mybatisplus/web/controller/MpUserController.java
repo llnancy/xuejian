@@ -183,10 +183,11 @@ public class MpUserController {
 
     /**
      * LambdaUpdateWrapper实现修改
+     * 可使用Wrappers.<MpUser>lambdaUpdate()静态方法代替new
      */
     @PatchMapping("/lambda-wrapper/users")
     public Boolean lambdaWrapperUpdate() {
-        LambdaUpdateWrapper<MpUser> lambdaUpdateWrapper = new LambdaUpdateWrapper<MpUser>()
+        LambdaUpdateWrapper<MpUser> lambdaUpdateWrapper = Wrappers.<MpUser>lambdaUpdate()
                 .eq(MpUser::getAge, 18)
                 .isNotNull(MpUser::getAddress)
                 .set(MpUser::getName, "年轻人");

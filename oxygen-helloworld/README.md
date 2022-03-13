@@ -1,4 +1,4 @@
-# 第一个SpringBoot项目
+# 第一个`SpringBoot`项目
 
 本文主要介绍创建一个`Spring Boot`项目的方式，有以下方式可供选择：
 

@@ -11,6 +11,7 @@
     <modules>
         <module>oxygen-helloworld</module>
         <module>oxygen-mybatis-plus</module>
+        <module>oxygen-configure</module>
     </modules>
 
     <properties>
