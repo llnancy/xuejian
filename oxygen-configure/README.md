@@ -1,6 +1,6 @@
-# `Spring Boot`配置`properties`或`yaml`
+# SpringBoot配置属性
 
-`Spring Boot`的核心理念是约定优于配置，其中就包括约定默认配置文件是`application.properties`或`application.yml`。对于应用层的配置，我们一般不需要进行修改；大多情况下都是业务层需要进行自定义的业务属性配置，例如下游接口`URL`、自定义属性、默认值等。本文主要介绍在`Spring Boot`的配置文件中如何进行各种数据类型的属性注入。
+`Spring Boot`的核心理念是约定优于配置，其中就包括约定默认配置文件是`application.properties`或`application.yml`。对于应用层的配置，我们一般不需要进行修改；大多情况下都是业务层需要进行自定义的业务属性配置，例如下游接口`URL`、自定义属性、默认值等。本文主要介绍在`Spring Boot`的配置文件中如何注入各种数据类型的属性以及如何进行属性值的覆盖。
 
 ## `properties`还是`yml`？
 
@@ -38,6 +38,56 @@
 > - 属性值前面需加一个空格（英文冒号`:`和属性值之间）。
 
 对于`properties`和`yml`的选择，可根据个人喜好进行选择，个人推荐选用`yml`格式，会更加面向对象和结构化。当然这两种格式也可相互进行转化。下文会以`yml`文件为例介绍各种数据类型的属性注入。
+
+## 创建工程
+
+创建`Spring Boot`项目`oxygen-configure`，引入相关依赖，完整`pom.xml`文件如下：
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>sunchaser-oxygen</artifactId>
+        <groupId>com.sunchaser.oxygen</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>oxygen-configure</artifactId>
+
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+        <springboot.version>2.6.4</springboot.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${springboot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <!-- lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+    </dependencies>
+</project>
+```
 
 ## 单一属性注入
 
@@ -345,4 +395,100 @@ public class AppController {
 
 引入依赖后需要重新`build`一下工程，或者`mvn clean`清理`target`目录后重新`mvn compile`进行编译。这样我们就可以从配置类跳转到`.yml`文件中对应的配置项位置。
 
-> 以上所有特性均适用于`.properties`文件。
+## 临时属性
+
+对于`application.yml`文件中的配置项，如果项目已经打成`jar`包了，在无法修改源码重新打包的情况下如果想替换某些配置项的值，可以在`java -jar`命令启动`jar`包时添加临时属性，它的优先级大于`application.yml`配置文件。例如修改`server.port`端口号，启动命令如下：
+
+```
+java -jar app.jar --server.port=8081
+```
+
+多个临时属性之间用空格分隔，每个临时属性前面都要加两个减号`--`。
+
+### 原理
+
+临时参数实际上会被启动类的`main`方法的`args`参数接收：
+
+```java
+@SpringBootApplication
+public class ConfigureApplication {
+    public static void main(String[] args) {
+        // SpringApplication.run(ConfigureApplication.class, args);
+        new SpringApplicationBuilder(ConfigureApplication.class)
+                .web(WebApplicationType.SERVLET)
+                .run(args); // 添加临时参数args
+    }
+}
+```
+
+所以启动类中一定要把`args`参数传递给`SpringApplication`，否则无法生效。
+
+## 多环境配置
+
+实际企业开发中我们会面对多个环境的配置，例如：
+
+- `local`：本地环境。通常所有的配置都在本地，例如连接本地的数据库等。
+- `dev`：开发环境。用于开发联调。
+- `fat`：功能验收测试环境。提供给测试同学使用，又叫`test`。
+- `uat`：用户验收测试环境。又叫预发布环境`pre`，此环境下填写的配置和生产环境保持一致。
+- `pro`：线上环境。
+
+通常我们会为每一个环境建立一个配置文件，例如本地环境`local`，对应的配置文件名为`application-local.yml`，`application`和环境标识`local`之间用`-`进行连接。另外我们还会建立`application.yml`主配置文件，可以存放一些所有环境公用的配置并设置让哪个环境的配置生效。
+
+例如我们想配置不同的环境使用不同的端口号，各配置文件的写法如下：
+
+`application-local.yml`：
+
+```yml
+server:
+  port: 8000
+```
+
+`application-dev.yml`：
+
+```yml
+server:
+  port: 8001
+```
+
+`application-uat.yml`：
+
+```yml
+server:
+  port: 8002
+```
+
+`application-fat.yml`：
+
+```yml
+server:
+  port: 8003
+```
+
+`application-pro.yml`：
+
+```yml
+server:
+  port: 8004
+```
+
+最后我们需要配置`application.yml`文件让某个环境的配置生效，例如本地开发时设置`local`生效：
+
+`application.yml`
+
+```yml
+spring:
+  profiles:
+    active: local
+```
+
+> 注意如果`application.yml`文件中存在相同的配置项，例如配置了：
+> ```yml
+> server:
+>   port: 80
+> ```
+> 则该配置并不会生效，会以`application-local.yml`中的配置为准。
+
+## 总结
+
+以上就是`Spring Boot`中和配置文件有关的内容，主要介绍了各种类型的属性注入方式以及多环境下的配置方式。所有的特性也均适用于`.properties`文件。完整代码可查看 [`Github`](https://github.com/sunchaser-lilu/sunchaser-oxygen/tree/master/oxygen-configure)。

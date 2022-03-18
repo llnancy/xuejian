@@ -212,4 +212,4 @@ public class HelloController {
 
 ## 启动`Spring Boot`
 
-运行`HelloWorldApplication#main`方法，浏览器中访问[`http://localhost:8080/hello`](http://localhost:8080/hello)即可进行测试。
+运行`HelloWorldApplication#main`方法，浏览器中访问[`http://localhost:8080/hello`](http://localhost:8080/hello)即可进行测试。完整代码可查看 [`Github`](https://github.com/sunchaser-lilu/sunchaser-oxygen/tree/master/oxygen-mybatis-plus)。

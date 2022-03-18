@@ -774,3 +774,5 @@ public class MpUserController {
 ## 其它
 
 - [`IDEA`插件`MyBatisX`](https://baomidou.com/pages/ba5b24/)
+
+完整代码可查看 [`Github`](https://github.com/sunchaser-lilu/sunchaser-oxygen/tree/master/oxygen-mybatis-plus)。
