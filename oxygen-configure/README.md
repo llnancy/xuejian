@@ -1,4 +1,4 @@
-# SpringBoot配置属性
+# `Spring Boot`配置属性
 
 `Spring Boot`的核心理念是约定优于配置，其中就包括约定默认配置文件是`application.properties`或`application.yml`。对于应用层的配置，我们一般不需要进行修改；大多情况下都是业务层需要进行自定义的业务属性配置，例如下游接口`URL`、自定义属性、默认值等。本文主要介绍在`Spring Boot`的配置文件中如何注入各种数据类型的属性以及如何进行属性值的覆盖。
 
@@ -379,7 +379,7 @@ public class AppController {
 
 以上就是对配置项的面向对象式封装。细心的朋友可能会发现，`IDEA`中，`UserServiceConfig`类文件上方出现了一个暗红色背景的横幅提示：`Spring Boot Configuration Annotation Processor not configured`（`Spring Boot`注解执行器没有配置）。
 
-![annotation-processor-not-configured]()
+![annotation-processor-not-configured](https://cdn.jsdelivr.net/gh/sunchaser-lilu/sunchaser-cdn@master/images/java-ee/springboot/configure/annotation-processor-not-configured.png)
 
 这是什么意思呢？举个简单的例子，我们在`.yml`文件中添加`server.port`配置项修改端口号，将鼠标移到`port`位置上，按住`ctrl(command)`并点击鼠标左键，会发现`IDEA`跳转到了`org.springframework.boot.autoconfigure.web.ServerProperties.class`文件，而同样的方式点击`user-service`配置项下面的配置会发现没有任何跳转动作。另外我们会发现输入`server`后会弹出相应提示，而我们输入`user-service`后确没有任何的提示。
 
@@ -491,4 +491,4 @@ spring:
 
 ## 总结
 
-以上就是`Spring Boot`中和配置文件有关的内容，主要介绍了各种类型的属性注入方式以及多环境下的配置方式。所有的特性也均适用于`.properties`文件。完整代码可查看 [`Github`](https://github.com/sunchaser-lilu/sunchaser-oxygen/tree/master/oxygen-configure)。
+以上就是`Spring Boot`中和配置文件有关的内容，主要介绍了各种类型的属性注入方式以及多环境下的配置方式。所有的特性也均适用于`.properties`文件。完整代码可查看 [Github](https://github.com/sunchaser-lilu/sunchaser-oxygen/tree/master/oxygen-configure)。
