@@ -14,6 +14,8 @@
         <module>oxygen-json</module>
         <module>oxygen-mybatis-plus</module>
         <module>oxygen-mongodb</module>
+        <module>oxygen-junit</module>
+        <module>oxygen-druid</module>
     </modules>
 
     <properties>
