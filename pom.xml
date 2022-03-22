@@ -16,6 +16,7 @@
         <module>oxygen-mongodb</module>
         <module>oxygen-junit</module>
         <module>oxygen-druid</module>
+        <module>oxygen-apollo</module>
     </modules>
 
     <properties>
