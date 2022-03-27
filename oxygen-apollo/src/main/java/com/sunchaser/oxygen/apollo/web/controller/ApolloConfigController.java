@@ -14,6 +14,7 @@ import java.util.List;
 
 /**
  * Apollo客户端读取配置项
+ * 需添加VM Options启动参数：-Denv=DEV -Dapollo.meta=http://localhost:8080
  *
  * @author sunchaser admin@lilu.org.cn
  * @since JDK8 2022/3/27
@@ -32,8 +33,8 @@ public class ApolloConfigController {
     /**
      * yml format:
      * oxygen:
-     *   apollo:
-     *     jsonstr: '[{"name":"sun", "age": 18}, {"name":"chaser", "age": 20}]'
+     * apollo:
+     * jsonstr: '[{"name":"sun", "age": 18}, {"name":"chaser", "age": 20}]'
      */
     @ApolloJsonValue("${oxygen.apollo.jsonstr:[]}")
     private List<JsonBean> jsonBeanList;
