@@ -1,7 +1,7 @@
 apollo:
   bootstrap:
     enabled: true # 注入默认application namespace的配置
-    namespaces: application.yml, Dev.spring-common # 注入其它多个namespace（非默认application）的配置
+    namespaces: application.yml # 注入其它多个namespace（非默认application）的配置
     eagerLoad:
       enabled: true # 将Apollo配置加载提到初始化日志系统之前：可以将日志相关的配置也交由Apollo进行管理
 
