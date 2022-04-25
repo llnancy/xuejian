@@ -1,20 +1,21 @@
-package com.sunchaser.oxygen.json;
+package com.sunchaser.oxygen.configure;
 
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 
 /**
- * SpringBoot整合JSON序列化 启动器
+ * SpringBoot配置属性 启动器
  *
  * @author sunchaser admin@lilu.org.cn
- * @since JDK8 2022/3/16
+ * @since JDK8 2022/3/13
  */
 @SpringBootApplication
-public class JsonApplication {
+public class OxygenConfigureApplication {
     public static void main(String[] args) {
-        new SpringApplicationBuilder(JsonApplication.class)
+        // SpringApplication.run(OxygenConfigureApplication.class, args);
+        new SpringApplicationBuilder(OxygenConfigureApplication.class)
                 .web(WebApplicationType.SERVLET)
-                .run(args);
+                .run(args); // 添加临时参数args
     }
 }

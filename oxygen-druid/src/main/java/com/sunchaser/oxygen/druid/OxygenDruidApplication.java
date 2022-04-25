@@ -1,7 +1,9 @@
 package com.sunchaser.oxygen.druid;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.sunchaser.oxygen.druid.repository.entity.MpUser;
 import com.sunchaser.oxygen.druid.repository.mapper.MpUserMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.WebApplicationType;
@@ -10,6 +12,8 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 /**
  * @author sunchaser admin@lilu.org.cn
  * @since JDK8 2022/3/19
@@ -17,9 +21,10 @@ import org.springframework.web.bind.annotation.RestController;
 @SpringBootApplication
 @MapperScan(basePackages = "com.sunchaser.oxygen.druid.repository.mapper")
 @RestController
-public class DruidApplication {
+@Slf4j
+public class OxygenDruidApplication {
     public static void main(String[] args) {
-        new SpringApplicationBuilder(DruidApplication.class)
+        new SpringApplicationBuilder(OxygenDruidApplication.class)
                 .web(WebApplicationType.SERVLET)
                 .run(args);
     }
@@ -29,6 +34,7 @@ public class DruidApplication {
 
     @GetMapping("/invoke")
     public void invoke() {
-        System.out.println(mpUserMapper.selectList(Wrappers.emptyWrapper()));
+        List<MpUser> mpUserList = mpUserMapper.selectList(Wrappers.emptyWrapper());
+        log.info("mpUserList={}", mpUserList);
     }
 }

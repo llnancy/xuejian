@@ -53,6 +53,8 @@ CREATE TABLE `mp_user`
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <!-- Spring Boot 版本-->
         <springboot.version>2.6.4</springboot.version>
         <!-- MyBatis-Plus依赖版本-->
@@ -339,7 +341,7 @@ public class MpUserController {
 
 ## 基础配置
 
-创建`Spring Boot`启动类`com.sunchaser.oxygen.mybatisplus.MybatisPlusApplication.java`，添加`@MapperScan`注解扫描`Mapper`文件。代码如下：
+创建`Spring Boot`启动类`com.sunchaser.oxygen.mybatisplus.OxygenMybatisPlusApplication.java`，添加`@MapperScan`注解扫描`Mapper`文件。代码如下：
 
 ```java
 package com.sunchaser.oxygen.mybatisplus;
@@ -357,9 +359,9 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
  */
 @SpringBootApplication
 @MapperScan("com.sunchaser.oxygen.mybatisplus.repository.mapper")
-public class MybatisPlusApplication {
+public class OxygenMybatisPlusApplication {
     public static void main(String[] args) {
-        new SpringApplicationBuilder(MybatisPlusApplication.class)
+        new SpringApplicationBuilder(OxygenMybatisPlusApplication.class)
                 .web(WebApplicationType.SERVLET)
                 .run(args);
     }

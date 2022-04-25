@@ -32,6 +32,8 @@
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <springboot.version>2.6.4</springboot.version>
         <apolloclient.version>1.9.2</apolloclient.version>
     </properties>
@@ -187,6 +189,7 @@ import com.ctrip.framework.apollo.Config;
 import com.ctrip.framework.apollo.spring.annotation.ApolloConfig;
 import com.ctrip.framework.apollo.spring.annotation.ApolloJsonValue;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -201,6 +204,7 @@ import java.util.List;
  * @since JDK8 2022/3/27
  */
 @RestController
+@Slf4j
 public class ApolloConfigController {
 
     @Value("${oxygen.apollo.name:defaultVal}")
@@ -210,8 +214,7 @@ public class ApolloConfigController {
 
     @GetMapping("/placeholder")
     public void getConfigByPlaceholder() {
-        System.out.println(key);
-        System.out.println(jsonList);
+        log.info("key={}, jsonList={}", key, jsonList);
     }
 }
 ```
@@ -254,6 +257,7 @@ import com.ctrip.framework.apollo.spring.annotation.ApolloConfig;
 import com.ctrip.framework.apollo.spring.annotation.ApolloJsonValue;
 import com.sunchaser.oxygen.apollo.config.OxygenApolloConfig;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -269,6 +273,7 @@ import java.util.List;
  * @since JDK8 2022/3/27
  */
 @RestController
+@Slf4j
 public class ApolloConfigController {
 
     @Autowired
@@ -278,8 +283,7 @@ public class ApolloConfigController {
     public void getOxygenApolloConfig() {
         String name = oxygenApolloConfig.getName();
         List<String> jsonstr = oxygenApolloConfig.getJsonstr();
-        System.out.println(name);
-        System.out.println(jsonstr);
+        log.info("name={}, jsonstr={}", name, jsonstr);
     }
 }
 ```

@@ -1,19 +1,17 @@
-package com.sunchaser.oxygen.mybatisplus;
+package com.sunchaser.oxygen.apollo;
 
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 
 /**
- * mybatis-plus 启动器
- *
  * @author sunchaser admin@lilu.org.cn
- * @since JDK8 2022/3/10
+ * @since JDK8 2022/3/27
  */
 @SpringBootApplication
-public class MybatisPlusApplication {
+public class OxygenApolloApplication {
     public static void main(String[] args) {
-        new SpringApplicationBuilder(MybatisPlusApplication.class)
+        new SpringApplicationBuilder(OxygenApolloApplication.class)
                 .web(WebApplicationType.SERVLET)
                 .run(args);
     }

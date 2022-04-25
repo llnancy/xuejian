@@ -27,6 +27,8 @@
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <springboot.version>2.6.4</springboot.version>
     </properties>
 
@@ -119,7 +121,6 @@ public class JsonController {
         list.add(p1);
         list.add(p2);
         list.add(p3);
-        System.out.println(list);
         return list;
     }
 }
@@ -266,6 +267,8 @@ private Date birthday;
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <springboot.version>2.6.4</springboot.version>
     </properties>
 
@@ -446,6 +449,8 @@ public class GsonConfig {
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <springboot.version>2.6.4</springboot.version>
     </properties>
 

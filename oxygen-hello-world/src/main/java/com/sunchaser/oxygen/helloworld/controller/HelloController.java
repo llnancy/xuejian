@@ -12,7 +12,6 @@ public class HelloController {
 
     @GetMapping("/hello")
     public String hello() {
-        System.out.println("hello Spring Boot");
-        return "Spring Boot";
+        return "Hello Spring Boot";
     }
 }

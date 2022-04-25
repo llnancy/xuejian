@@ -25,7 +25,6 @@ public class JsonController {
         list.add(p1);
         list.add(p2);
         list.add(p3);
-        System.out.println(list);
         return list;
     }
 }

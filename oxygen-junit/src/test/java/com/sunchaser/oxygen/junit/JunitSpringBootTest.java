@@ -12,6 +12,5 @@ public class JunitSpringBootTest {
 
     @Test
     public void test() {
-        System.out.println("junit test...");
     }
 }

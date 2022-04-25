@@ -5,6 +5,7 @@ import com.ctrip.framework.apollo.spring.annotation.ApolloConfig;
 import com.ctrip.framework.apollo.spring.annotation.ApolloJsonValue;
 import com.sunchaser.oxygen.apollo.config.OxygenApolloConfig;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +21,7 @@ import java.util.List;
  * @since JDK8 2022/3/27
  */
 @RestController
+@Slf4j
 public class ApolloConfigController {
 
     @ApolloConfig(value = "application.yml")
@@ -57,8 +59,7 @@ public class ApolloConfigController {
 
     @GetMapping("/placeholder")
     public void getConfigByPlaceholder() {
-        System.out.println(key);
-        System.out.println(jsonList);
+        log.info("key={}, jsonList={}", key, jsonList);
     }
 
     @Autowired
@@ -68,7 +69,6 @@ public class ApolloConfigController {
     public void getOxygenApolloConfig() {
         String name = oxygenApolloConfig.getName();
         List<String> jsonstr = oxygenApolloConfig.getJsonstr();
-        System.out.println(name);
-        System.out.println(jsonstr);
+        log.info("name={}, jsonstr={}", name, jsonstr);
     }
 }

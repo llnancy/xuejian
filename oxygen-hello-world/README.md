@@ -80,6 +80,8 @@
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
 
     <dependencies>
@@ -110,6 +112,8 @@
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <springboot.version>2.6.4</springboot.version>
     </properties>
 
@@ -136,7 +140,7 @@
 
 ## 编写启动类
 
-手动创建包`com.sunchaser.oxygen.helloworld`，并在包中创建`Spring Boot`的启动类`HelloWorldApplication.java`：
+手动创建包`com.sunchaser.oxygen.helloworld`，并在包中创建`Spring Boot`的启动类`OxygenHelloWorldApplication.java`：
 
 ```java
 package com.sunchaser.oxygen.helloworld;
@@ -151,9 +155,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @since JDK8 2022/3/6
  */
 @SpringBootApplication
-public class HelloWorldApplication {
+public class OxygenHelloWorldApplication {
     public static void main(String[] args) {
-        SpringApplication.run(HelloWorldApplication.class, args);
+        SpringApplication.run(OxygenHelloWorldApplication.class, args);
     }
 }
 ```
@@ -175,10 +179,10 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
  * @since JDK8 2022/3/6
  */
 @SpringBootApplication
-public class HelloWorldApplication {
+public class OxygenHelloWorldApplication {
     public static void main(String[] args) {
-        // SpringApplication.run(HelloWorldApplication.class, args);
-        new SpringApplicationBuilder(HelloWorldApplication.class)
+        // SpringApplication.run(OxygenHelloWorldApplication.class, args);
+        new SpringApplicationBuilder(OxygenHelloWorldApplication.class)
                 .web(WebApplicationType.SERVLET)
                 .run(args);
     }
@@ -204,12 +208,11 @@ public class HelloController {
 
     @GetMapping("/hello")
     public String hello() {
-        System.out.println("hello Spring Boot");
-        return "Spring Boot";
+        return "Hello Spring Boot";
     }
 }
 ```
 
 ## 启动`Spring Boot`
 
-运行`HelloWorldApplication#main`方法，浏览器中访问[`http://localhost:8080/hello`](http://localhost:8080/hello)即可进行测试。完整代码可查看 [`Github`](https://github.com/sunchaser-lilu/sunchaser-oxygen/tree/master/oxygen-mybatis-plus)。
+运行`OxygenHelloWorldApplication#main`方法，浏览器中访问[`http://localhost:8080/hello`](http://localhost:8080/hello)即可进行测试。完整代码可查看 [`Github`](https://github.com/sunchaser-lilu/sunchaser-oxygen/tree/master/oxygen-mybatis-plus)。

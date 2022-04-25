@@ -60,6 +60,8 @@
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <springboot.version>2.6.4</springboot.version>
     </properties>
 
@@ -411,10 +413,10 @@ java -jar app.jar --server.port=8081
 
 ```java
 @SpringBootApplication
-public class ConfigureApplication {
+public class OxygenConfigureApplication {
     public static void main(String[] args) {
-        // SpringApplication.run(ConfigureApplication.class, args);
-        new SpringApplicationBuilder(ConfigureApplication.class)
+        // SpringApplication.run(OxygenConfigureApplication.class, args);
+        new SpringApplicationBuilder(OxygenConfigureApplication.class)
                 .web(WebApplicationType.SERVLET)
                 .run(args); // 添加临时参数args
     }

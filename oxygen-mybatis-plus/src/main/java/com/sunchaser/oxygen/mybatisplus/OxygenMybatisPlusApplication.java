@@ -1,21 +1,19 @@
-package com.sunchaser.oxygen.helloworld;
+package com.sunchaser.oxygen.mybatisplus;
 
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 
 /**
- * hello world 项目启动类
+ * mybatis-plus 启动器
  *
  * @author sunchaser admin@lilu.org.cn
- * @since JDK8 2022/3/6
+ * @since JDK8 2022/3/10
  */
 @SpringBootApplication
-public class HelloWorldApplication {
+public class OxygenMybatisPlusApplication {
     public static void main(String[] args) {
-        // SpringApplication.run(HelloWorldApplication.class, args);
-        new SpringApplicationBuilder(HelloWorldApplication.class)
+        new SpringApplicationBuilder(OxygenMybatisPlusApplication.class)
                 .web(WebApplicationType.SERVLET)
                 .run(args);
     }
