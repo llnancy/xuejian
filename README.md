@@ -9,3 +9,4 @@
 - [`Spring Boot`整合`JSON`序列化](./oxygen-json/README.md)
 - [`Spring Boot`整合`MyBatis-Plus`快速实现单表`CRUD`](./oxygen-mybatis-plus/README.md)
 - [`Spring Boot`整合分布式配置中心`Apollo`](./oxygen-apollo/README.md)
+- [`Spring Boot`整合消息队列`RabbitMQ`](./oxygen-rabbitmq/README.md)
