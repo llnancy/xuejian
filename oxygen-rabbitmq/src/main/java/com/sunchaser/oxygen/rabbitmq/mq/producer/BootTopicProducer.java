@@ -1,6 +1,7 @@
 package com.sunchaser.oxygen.rabbitmq.mq.producer;
 
 import com.sunchaser.oxygen.rabbitmq.config.property.RabbitMQProperties;
+import com.sunchaser.oxygen.rabbitmq.model.MsgDTO;
 import org.springframework.amqp.rabbit.connection.CorrelationData;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,15 @@ public class BootTopicProducer {
                 rabbitMQProperties.getTopicExchangeName(),
                 routingKey,
                 msg,
+                new CorrelationData()
+        );
+    }
+
+    public void send(MsgDTO msgDTO, String routingKey) {
+        rabbitTemplate.convertAndSend(
+                rabbitMQProperties.getTopicExchangeName(),
+                routingKey,
+                msgDTO,
                 new CorrelationData()
         );
     }

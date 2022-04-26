@@ -36,7 +36,7 @@ public class RabbitMQConfig {
     }
 
     /**
-     * 不推荐使用下面这种@Bean注解方式自行注入RabbitTemplate对象的写法
+     * 不推荐使用下面这种@Bean注解方式自行注入RabbitTemplate对象的写法，除非需要存在两个不同配置项的RabbitTemplate Bean
      * 原因是new关键字创建的RabbitTemplate对象无法使用spring.rabbitmq.template.*配置项
      * 优雅的写法请查看com.sunchaser.oxygen.rabbitmq.config.RabbitMQCallback类
      *

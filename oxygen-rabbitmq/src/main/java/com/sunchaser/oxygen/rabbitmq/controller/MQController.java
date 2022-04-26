@@ -1,8 +1,11 @@
 package com.sunchaser.oxygen.rabbitmq.controller;
 
+import com.sunchaser.oxygen.rabbitmq.model.MsgDTO;
 import com.sunchaser.oxygen.rabbitmq.mq.producer.BootTopicProducer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -20,5 +23,10 @@ public class MQController {
     @GetMapping("/send")
     public void send(String msg, String routingKey) {
         bootTopicProducer.send(msg, routingKey);
+    }
+
+    @PostMapping("/send")
+    public void send(@RequestBody MsgDTO msgDTO, String routingKey) {
+        bootTopicProducer.send(msgDTO, routingKey);
     }
 }
