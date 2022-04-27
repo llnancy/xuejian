@@ -21,4 +21,9 @@ my:
     topic-exchange-name: boot_topic
     topic-queue-name: boot_topic_queue
     topic-routing-key: boot.#
-
+    normal-exchange-name: normal_exchange
+    normal-queue-name: normal_queue
+    normal-routing-key: normal.#
+    dead-letter-exchange-name: dead_exchange
+    dead-letter-queue-name: dead_queue
+    dead-letter-routing-key: dead.#

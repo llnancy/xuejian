@@ -2,6 +2,7 @@ package com.sunchaser.chunyu.rabbitmq.mq.producer;
 
 import com.sunchaser.chunyu.rabbitmq.config.property.RabbitMQProperties;
 import com.sunchaser.chunyu.rabbitmq.model.MsgDTO;
+import org.springframework.amqp.core.MessageProperties;
 import org.springframework.amqp.rabbit.connection.CorrelationData;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,20 @@ public class BootTopicProducer {
                 rabbitMQProperties.getTopicExchangeName(),
                 routingKey,
                 msgDTO,
+                new CorrelationData()
+        );
+    }
+
+    public void send(MsgDTO msgDTO, String routingKey, String expire) {
+        rabbitTemplate.convertAndSend(
+                rabbitMQProperties.getNormalExchangeName(),
+                routingKey,
+                msgDTO,
+                message -> {
+                    MessageProperties messageProperties = message.getMessageProperties();
+                    messageProperties.setExpiration(expire);// 消息延迟时间，单位ms。
+                    return message;
+                },
                 new CorrelationData()
         );
     }

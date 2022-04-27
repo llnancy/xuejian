@@ -29,4 +29,9 @@ public class MQController {
     public void send(@RequestBody MsgDTO msgDTO, String routingKey) {
         bootTopicProducer.send(msgDTO, routingKey);
     }
+
+    @PostMapping("/send-ttl")
+    public void send(@RequestBody MsgDTO msgDTO, String routingKey, String expire) {
+        bootTopicProducer.send(msgDTO, routingKey, expire);
+    }
 }

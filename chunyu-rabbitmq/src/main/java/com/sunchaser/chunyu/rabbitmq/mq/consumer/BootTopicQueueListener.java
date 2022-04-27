@@ -17,7 +17,7 @@ import java.io.IOException;
  * @since JDK8 2022/4/25
  */
 @Component
-@RabbitListener(queues = "${my.rabbitmq.topic-queue-name}")
+@RabbitListener(queues = {"${my.rabbitmq.topic-queue-name}", "${my.rabbitmq.normal-queue-name}"})
 @Slf4j
 public class BootTopicQueueListener {
 

@@ -31,17 +31,32 @@ public class RabbitMQProperties {
     private String topicRoutingKey;
 
     /**
+     * 正常交换机名称
+     */
+    private String normalExchangeName;
+
+    /**
+     * 正常队列名称
+     */
+    private String normalQueueName;
+
+    /**
+     * 正常队列绑定键
+     */
+    private String normalRoutingKey;
+
+    /**
      * 死信交换机名称
      */
-    private String deadExchangeName;
+    private String deadLetterExchangeName;
 
     /**
      * 死信队列名称
      */
-    private String deadQueueName;
+    private String deadLetterQueueName;
 
     /**
      * 死信队列绑定键
      */
-    private String deadRoutingKey;
+    private String deadLetterRoutingKey;
 }

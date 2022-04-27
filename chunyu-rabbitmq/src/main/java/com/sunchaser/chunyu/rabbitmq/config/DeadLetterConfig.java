@@ -25,7 +25,7 @@ public class DeadLetterConfig {
      */
     @Bean
     public Exchange deadLetterExchange() {
-        return ExchangeBuilder.topicExchange(rabbitMQProperties.getDeadExchangeName())
+        return ExchangeBuilder.topicExchange(rabbitMQProperties.getDeadLetterExchangeName())
                 .build();
     }
 
@@ -35,8 +35,8 @@ public class DeadLetterConfig {
      * @return Queue
      */
     @Bean
-    public Queue deadQueue() {
-        return QueueBuilder.durable(rabbitMQProperties.getDeadQueueName())
+    public Queue deadLetterQueue() {
+        return QueueBuilder.durable(rabbitMQProperties.getDeadLetterQueueName())
                 .build();
     }
 
@@ -47,9 +47,9 @@ public class DeadLetterConfig {
      */
     @Bean
     public Binding bindingDeadQueueExchange() {
-        return BindingBuilder.bind(deadQueue())
+        return BindingBuilder.bind(deadLetterQueue())
                 .to(deadLetterExchange())
-                .with(rabbitMQProperties.getDeadRoutingKey())
+                .with(rabbitMQProperties.getDeadLetterRoutingKey())
                 .noargs();
     }
 }

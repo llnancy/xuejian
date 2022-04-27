@@ -34,16 +34,12 @@ public class BootTopicConfig {
     /**
      * 创建队列。
      * durable方法创建的是持久化队列
-     * deadLetterExchange方法设置死信交换机
-     * deadLetterRoutingKey方法设置死信队列绑定键
      *
      * @return Queue
      */
     @Bean
     public Queue bootQueue() {
         return QueueBuilder.durable(rabbitMQProperties.getTopicQueueName())
-                .deadLetterExchange(rabbitMQProperties.getDeadExchangeName())
-                .deadLetterRoutingKey(rabbitMQProperties.getDeadRoutingKey())
                 .build();
     }
 
