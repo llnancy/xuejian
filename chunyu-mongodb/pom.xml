@@ -2,23 +2,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>sunchaser-chunyu</artifactId>
+        <groupId>com.sunchaser.chunyu</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.sunchaser.chunyu</groupId>
-    <artifactId>sunchaser-chunyu</artifactId>
-    <packaging>pom</packaging>
-    <version>0.0.1-SNAPSHOT</version>
-    <modules>
-        <module>chunyu-hello-world</module>
-        <module>chunyu-configure</module>
-        <module>chunyu-json</module>
-        <module>chunyu-mybatis-plus</module>
-        <module>chunyu-mongodb</module>
-        <module>chunyu-junit</module>
-        <module>chunyu-druid</module>
-        <module>chunyu-apollo</module>
-        <module>chunyu-rabbitmq</module>
-    </modules>
+    <artifactId>chunyu-mongodb</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
