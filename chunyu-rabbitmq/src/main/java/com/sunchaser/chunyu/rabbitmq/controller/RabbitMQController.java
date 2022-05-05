@@ -1,7 +1,7 @@
 package com.sunchaser.chunyu.rabbitmq.controller;
 
 import com.sunchaser.chunyu.rabbitmq.model.MsgDTO;
-import com.sunchaser.chunyu.rabbitmq.mq.producer.BootTopicProducer;
+import com.sunchaser.chunyu.rabbitmq.mq.producer.RabbitMQProducer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,23 +15,33 @@ import org.springframework.web.bind.annotation.RestController;
  * @since JDK8 2022/4/25
  */
 @RestController
-public class MQController {
+public class RabbitMQController {
 
     @Autowired
-    private BootTopicProducer bootTopicProducer;
+    private RabbitMQProducer rabbitMQProducer;
 
     @GetMapping("/send")
     public void send(String msg, String routingKey) {
-        bootTopicProducer.send(msg, routingKey);
+        rabbitMQProducer.send(msg, routingKey);
     }
 
     @PostMapping("/send")
     public void send(@RequestBody MsgDTO msgDTO, String routingKey) {
-        bootTopicProducer.send(msgDTO, routingKey);
+        rabbitMQProducer.send(msgDTO, routingKey);
     }
 
     @PostMapping("/send-ttl")
     public void send(@RequestBody MsgDTO msgDTO, String routingKey, String expire) {
-        bootTopicProducer.send(msgDTO, routingKey, expire);
+        rabbitMQProducer.send(msgDTO, routingKey, expire);
+    }
+
+    @PostMapping("/send-normal")
+    public void sendNormalExchange(@RequestBody MsgDTO msgDTO, String routingKey) {
+        rabbitMQProducer.sendNormalExchange(msgDTO, routingKey);
+    }
+
+    @PostMapping("/send-delayed")
+    public void send(@RequestBody MsgDTO msgDTO, String routingKey, Integer delay) {
+        rabbitMQProducer.send(msgDTO, routingKey, delay);
     }
 }

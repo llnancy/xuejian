@@ -34,6 +34,9 @@ public class NormalConfig {
      * durable方法创建的是持久化队列
      * deadLetterExchange方法设置死信交换机
      * deadLetterRoutingKey方法设置死信队列绑定键
+     * maxLength方法设置队列长度
+     * ttl方法设置队列延迟时间
+     * maxPriority方法设置优先队列
      *
      * @return Queue
      */
@@ -42,11 +45,14 @@ public class NormalConfig {
         return QueueBuilder.durable(rabbitMQProperties.getNormalQueueName())
                 .deadLetterExchange(rabbitMQProperties.getDeadLetterExchangeName())
                 .deadLetterRoutingKey(rabbitMQProperties.getDeadLetterRoutingKey())
+                .maxLength(6)
+                // .ttl(10000) // TTL：单位毫秒
+                // .maxPriority(10) // 优先级：0~255范围内
                 .build();
     }
 
     /**
-     * 交换机和队列进行绑定
+     * 正常交换机和队列进行绑定
      *
      * @return Binding
      */

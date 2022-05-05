@@ -17,27 +17,32 @@ import java.io.IOException;
  * @since JDK8 2022/4/25
  */
 @Component
-@RabbitListener(queues = {"${my.rabbitmq.topic-queue-name}", "${my.rabbitmq.normal-queue-name}"})
+@RabbitListener(queues = {
+        "${my.rabbitmq.topic-queue-name}",
+        // "${my.rabbitmq.normal-queue-name}",
+        "${my.rabbitmq.dead-letter-queue-name}",
+        "${my.rabbitmq.delayed-queue-name}"
+})
 @Slf4j
-public class BootTopicQueueListener {
+public class RabbitMQConsumer {
 
     @RabbitHandler
     public void listener(String msg, Message message, Channel channel) {
         long deliveryTag = message.getMessageProperties().getDeliveryTag();
         try {
-            log.info("RabbitMQ - [BootTopicQueueListener] 消费端 消费到消息，msg={}, message={}", msg, message);
+            log.info("RabbitMQ - [RabbitMQConsumer] 消费端 消费到消息，msg={}, message={}", msg, message);
             if ("error".equals(msg)) {
                 throw new RuntimeException("error");
             }
             // 手动ack，肯定应答，multiple=false表示不批量
             channel.basicAck(deliveryTag, false);
         } catch (Exception e) {
-            log.error("RabbitMQ - [BootTopicQueueListener] 消费端 消费消息时发生异常", e);
+            log.error("RabbitMQ - [RabbitMQConsumer] 消费端 消费消息时发生异常", e);
             try {
-                // 否定应答，multiple=false表示不批量，requeue=false表示不重新投递至队列（即丢弃）
+                // 否定应答，multiple=false表示不批量，requeue=false表示不重新投递至原队列
                 channel.basicNack(deliveryTag, false, false);
             } catch (IOException ex) {
-                log.error("RabbitMQ - [BootTopicQueueListener] 消费端 否定应答消息时发生异常", ex);
+                log.error("RabbitMQ - [RabbitMQConsumer] 消费端 否定应答消息时发生异常", ex);
             }
         }
     }
@@ -46,16 +51,19 @@ public class BootTopicQueueListener {
     public void listener(MsgDTO msg, Message message, Channel channel) {
         long deliveryTag = message.getMessageProperties().getDeliveryTag();
         try {
-            log.info("RabbitMQ - [BootTopicQueueListener] 消费端 消费到消息，msg={}, message={}", msg, message);
+            log.info("RabbitMQ - [RabbitMQConsumer] 消费端 消费到消息，msg={}, message={}", msg, message);
+            if ("error".equals(msg.getMsg())) {
+                throw new RuntimeException("error");
+            }
             // 手动ack，肯定应答，multiple=false表示不批量
             channel.basicAck(deliveryTag, false);
         } catch (Exception e) {
-            log.error("RabbitMQ - [BootTopicQueueListener] 消费端 消费消息时发生异常", e);
+            log.error("RabbitMQ - [RabbitMQConsumer] 消费端 消费消息时发生异常", e);
             try {
-                // 否定应答，multiple=false表示不批量，requeue=false表示不重新投递至队列（即丢弃）
+                // 否定应答，multiple=false表示不批量，requeue=false表示不重新投递至原队列，如果配置了死信则会转发到死信交换机。
                 channel.basicNack(deliveryTag, false, false);
             } catch (IOException ex) {
-                log.error("RabbitMQ - [BootTopicQueueListener] 消费端 否定应答消息时发生异常", ex);
+                log.error("RabbitMQ - [RabbitMQConsumer] 消费端 否定应答消息时发生异常", ex);
             }
         }
     }

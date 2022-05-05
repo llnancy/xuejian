@@ -27,3 +27,6 @@ my:
     dead-letter-exchange-name: dead_exchange
     dead-letter-queue-name: dead_queue
     dead-letter-routing-key: dead.#
+    delayed-exchange-name: delayed_exchange
+    delayed-queue-name: delayed_queue
+    delayed-routing-key: delayed.#

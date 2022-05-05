@@ -59,4 +59,19 @@ public class RabbitMQProperties {
      * 死信队列绑定键
      */
     private String deadLetterRoutingKey;
+
+    /**
+     * 延迟交换机名称
+     */
+    private String delayedExchangeName;
+
+    /**
+     * 延迟队列名称
+     */
+    private String delayedQueueName;
+
+    /**
+     * 延迟队列绑定键
+     */
+    private String delayedRoutingKey;
 }

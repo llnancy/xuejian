@@ -1,5 +1,6 @@
 package com.sunchaser.chunyu.rabbitmq.config;
 
+import com.sunchaser.chunyu.rabbitmq.config.property.RabbitMQProperties;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.ReturnedMessage;
@@ -23,6 +24,8 @@ public class RabbitMQCallback implements InitializingBean, RabbitTemplate.Confir
 
     @Autowired
     private RabbitTemplate rabbitTemplate;
+    @Autowired
+    private RabbitMQProperties rabbitMQProperties;
 
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -57,6 +60,10 @@ public class RabbitMQCallback implements InitializingBean, RabbitTemplate.Confir
      */
     @Override
     public void returnedMessage(@NonNull ReturnedMessage returned) {
+        if (rabbitMQProperties.getDelayedExchangeName().equals(returned.getExchange())) {
+            // 处理rabbitmq-delayed-message-exchange插件的延迟交换机回调
+            return;
+        }
         log.error("RabbitMQ - [ReturnsCallback] 交换机路由消息至队列失败，消息退回发起者，消息内容为：{}", returned);
     }
 }
