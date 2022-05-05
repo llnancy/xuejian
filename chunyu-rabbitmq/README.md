@@ -221,7 +221,6 @@ public class BootTopicConfig {
 package com.sunchaser.chunyu.rabbitmq.mq.producer;
 
 import com.sunchaser.chunyu.rabbitmq.config.property.RabbitMQProperties;
-import org.springframework.amqp.rabbit.connection.CorrelationData;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
