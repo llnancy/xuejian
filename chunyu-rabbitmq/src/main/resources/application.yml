@@ -14,6 +14,8 @@ spring:
       type: simple
       simple:
         acknowledge-mode: manual # manual：开启消费端手动ack应答。默认值为auto自动应答。
+  application:
+    name: chunyu-rabbitmq-application
 
 # 自定义的交换机、队列及绑定键的名称
 my:

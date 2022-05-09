@@ -8,6 +8,8 @@ spring:
     hiddenmethod:
       filter:
         enabled: true # 开启HiddenHttpMethodFilter支持restful风格URL
+  application:
+    name: chunyu-mybatis-plus-application
 
 # 打印执行sql，生产环境关闭
 mybatis-plus:

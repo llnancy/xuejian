@@ -32,3 +32,5 @@ server:
 spring:
   profiles:
     active: local
+  application:
+    name: chunyu-configure-application

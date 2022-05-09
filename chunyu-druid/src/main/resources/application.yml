@@ -10,3 +10,5 @@ spring:
       stat-view-servlet:
         enabled: true
         url-pattern: /druid/*
+  application:
+    name: chunyu-druid-application
