@@ -1,0 +1,8 @@
+type User {
+    id: ID!
+    name: String!
+    sex: Sex
+    age: Int
+    address: Address
+    son: User
+}

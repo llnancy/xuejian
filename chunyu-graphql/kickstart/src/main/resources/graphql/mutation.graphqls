@@ -1,0 +1,5 @@
+# All mutations available in graphql
+type Mutation {
+    # Create a user
+    createUser(input: CreateUserInput!): User!
+}

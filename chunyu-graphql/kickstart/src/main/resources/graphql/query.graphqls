@@ -1,0 +1,5 @@
+# All available queries on this graphql server
+type Query {
+    # 根据ID查询用户信息
+    user(id: ID!): User!
+}

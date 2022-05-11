@@ -1,0 +1,6 @@
+type Address {
+    province: String
+    city: String
+    area: String
+    detailAddress: String
+}

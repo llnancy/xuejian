@@ -1,0 +1,13 @@
+input CreateUserInput {
+    name: String!
+    sex: Sex
+    age: Int
+    address: AddressInput!
+}
+
+input AddressInput {
+    province: String
+    city: String
+    area: String
+    detailAddress: String
+}

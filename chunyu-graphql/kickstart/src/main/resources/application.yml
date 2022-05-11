@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: chunyu-graphql-kickstart-application
+
+graphql:
+  tools:
+    schema-location-pattern: "**/*.graphqls" # graphql schema location
+  servlet:
+    max-query-depth: 13
+    exception-handlers-enabled: true
