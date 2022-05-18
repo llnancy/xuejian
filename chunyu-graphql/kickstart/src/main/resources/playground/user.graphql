@@ -1,0 +1,33 @@
+# Write your query or mutation here
+query GET_USER($id: ID!) {
+    user(id: $id) {
+        id
+        name
+        age
+        address {
+            province
+            city
+        }
+        createdOn
+        createdAt
+    }
+}
+
+mutation CREATE_USER($name: String!, $createdOn: LocalDateTime) {
+    createUser(input: {
+        name: $name
+        age: 10
+        sex: MAN
+        createdOn: $createdOn
+        createdAt: "2022-05-18 20:44:37"
+        address: {
+            province: "Zhe Jiang"
+            city: "Hang Zhou"
+        }
+    }) {
+        id
+        name
+        createdOn
+        createdAt
+    }
+}

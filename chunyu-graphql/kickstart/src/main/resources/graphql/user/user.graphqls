@@ -2,7 +2,9 @@ type User {
     id: ID!
     name: String!
     sex: Sex
-    age: Int
+    age: NonNegativeInt
     address: Address
     son: User
+    createdOn: Date
+    createdAt: LocalDateTime
 }

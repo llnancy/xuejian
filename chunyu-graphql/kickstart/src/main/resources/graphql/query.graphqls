@@ -1,3 +1,9 @@
+# @see graphql.scalars.ExtendedScalars
+scalar NonNegativeInt
+scalar Date
+scalar DateTime
+scalar LocalDateTime
+
 # All available queries on this graphql server
 type Query {
     # 根据ID查询用户信息

@@ -18,7 +18,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <springboot.version>2.6.4</springboot.version>
         <graphql.starter.version>11.1.0</graphql.starter.version>
-        <graphql.extended.scalars.version>18.0</graphql.extended.scalars.version>
+        <graphql.extended.scalars.version>16.0.1</graphql.extended.scalars.version>
     </properties>
 
     <dependencyManagement>
@@ -82,18 +82,18 @@
         <!--            <version>${graphql.starter.version}</version>-->
         <!--            <scope>runtime</scope>-->
         <!--        </dependency>-->
-        <!--        &lt;!&ndash; graphql-java scalar &ndash;&gt;-->
-        <!--        <dependency>-->
-        <!--            <groupId>com.graphql-java</groupId>-->
-        <!--            <artifactId>graphql-java-extended-scalars</artifactId>-->
-        <!--            <version>${graphql.extended.scalars.version}</version>-->
-        <!--            <exclusions>-->
-        <!--                <exclusion>-->
-        <!--                    <groupId>com.graphql-java</groupId>-->
-        <!--                    <artifactId>graphql-java</artifactId>-->
-        <!--                </exclusion>-->
-        <!--            </exclusions>-->
-        <!--        </dependency>-->
+                <!-- graphql-java scalar -->
+                <dependency>
+                    <groupId>com.graphql-java</groupId>
+                    <artifactId>graphql-java-extended-scalars</artifactId>
+                    <version>${graphql.extended.scalars.version}</version>
+                    <exclusions>
+                        <exclusion>
+                            <groupId>com.graphql-java</groupId>
+                            <artifactId>graphql-java</artifactId>
+                        </exclusion>
+                    </exclusions>
+                </dependency>
                 <!-- JSR303 校验 -->
                 <dependency>
                     <groupId>org.springframework.boot</groupId>

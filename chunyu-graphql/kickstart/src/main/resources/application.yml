@@ -8,3 +8,10 @@ graphql:
   servlet:
     max-query-depth: 13
     exception-handlers-enabled: true
+  playground:
+    headers:
+      Authorization: SunChaser
+    tabs:
+      - name: User sample query
+        query: classpath:playground/user.graphql
+        variables: classpath:playground/user-variables.json

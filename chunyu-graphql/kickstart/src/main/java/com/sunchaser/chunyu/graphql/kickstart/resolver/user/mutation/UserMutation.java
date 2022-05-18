@@ -1,14 +1,22 @@
 package com.sunchaser.chunyu.graphql.kickstart.resolver.user.mutation;
 
+import com.sunchaser.chunyu.graphql.kickstart.context.CustomGraphQLContext;
 import com.sunchaser.chunyu.graphql.kickstart.model.User;
 import com.sunchaser.chunyu.graphql.kickstart.model.input.CreateUserInput;
 import graphql.kickstart.tools.GraphQLMutationResolver;
+import graphql.schema.DataFetchingEnvironment;
+import graphql.schema.DataFetchingFieldSelectionSet;
+import graphql.schema.SelectedField;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 /**
  * graphql user mutation resolver
@@ -21,14 +29,42 @@ import java.util.UUID;
 @Validated
 public class UserMutation implements GraphQLMutationResolver {
 
-    public User createUser(@Valid CreateUserInput input) {
+    public User createUser(@Valid CreateUserInput input, DataFetchingEnvironment environment) {
         log.info("Creating user. input: {}", input);
+
+        // 请求中包含的需要查询的字段集合
+        DataFetchingFieldSelectionSet selectionSet = environment.getSelectionSet();
+
+        // 获取所有查询字段
+        List<String> fieldNames = selectionSet.getFields()
+                .stream()
+                .map(SelectedField::getName)
+                .collect(Collectors.toList());
+
+        // 查询字段中是否包含id
+        boolean containsId = selectionSet.contains("id");
+
+        // 查询字段中是否同时包含id和name
+        boolean containsAllOfIdAndName = selectionSet.containsAllOf("id", "name");
+
+        // 查询字段中是否包含id或name（任意一个）
+        boolean containsAnyOfIdAndName = selectionSet.containsAnyOf("id", "name");
+
+        // 上下文
+        // DefaultGraphQLServletContext context =  environment.getContext();
+        CustomGraphQLContext context = environment.getContext();
+
+        // Servlet API
+        HttpServletRequest request = context.getHttpServletRequest();
+        HttpServletResponse response = context.getHttpServletResponse();
 
         return User.builder()
                 .id(UUID.randomUUID())
                 .name(input.getName())
                 .sex(input.getSex())
                 .age(input.getAge())
+                .createdOn(input.getCreatedOn().toLocalDate())
+                .createdAt(input.getCreatedAt())
                 .address(input.getAddress())
                 .build();
     }

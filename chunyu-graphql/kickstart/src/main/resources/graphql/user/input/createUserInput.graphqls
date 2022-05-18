@@ -3,6 +3,8 @@ input CreateUserInput {
     sex: Sex
     age: Int
     address: AddressInput!
+    createdOn: LocalDateTime
+    createdAt: LocalDateTime
 }
 
 input AddressInput {

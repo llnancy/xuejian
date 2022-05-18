@@ -2,4 +2,6 @@
 type Mutation {
     # Create a user
     createUser(input: CreateUserInput!): User!
+    # Upload a file
+    uploadFile: ID!
 }

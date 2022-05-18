@@ -5,6 +5,8 @@ import com.sunchaser.chunyu.graphql.kickstart.model.SexEnum;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  * CreateUserInput.java -> createUserInput.graphqls
@@ -19,4 +21,6 @@ public class CreateUserInput {
     private SexEnum sex;
     private Integer age;
     private Address address;
+    LocalDateTime createdOn;
+    LocalDateTime createdAt;
 }

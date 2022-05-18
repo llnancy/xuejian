@@ -8,6 +8,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.constraints.NotBlank;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 /**
@@ -28,6 +30,8 @@ public class UserQueryResolver implements GraphQLQueryResolver {
                 .name("SunChaser")
                 .sex(SexEnum.MAN)
                 .age(18)
+                .createdAt(LocalDateTime.now())
+                .createdOn(LocalDate.now())
                 .build();
     }
 }
