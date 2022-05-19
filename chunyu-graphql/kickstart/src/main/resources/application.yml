@@ -8,6 +8,7 @@ graphql:
   servlet:
     max-query-depth: 13
     exception-handlers-enabled: true
+    tracing-enabled: true
   playground:
     headers:
       Authorization: SunChaser

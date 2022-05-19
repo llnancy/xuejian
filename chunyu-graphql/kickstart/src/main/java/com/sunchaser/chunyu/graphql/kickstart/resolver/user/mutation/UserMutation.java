@@ -3,10 +3,12 @@ package com.sunchaser.chunyu.graphql.kickstart.resolver.user.mutation;
 import com.sunchaser.chunyu.graphql.kickstart.context.CustomGraphQLContext;
 import com.sunchaser.chunyu.graphql.kickstart.model.User;
 import com.sunchaser.chunyu.graphql.kickstart.model.input.CreateUserInput;
+import com.sunchaser.chunyu.graphql.kickstart.publisher.UserPublisher;
 import graphql.kickstart.tools.GraphQLMutationResolver;
 import graphql.schema.DataFetchingEnvironment;
 import graphql.schema.DataFetchingFieldSelectionSet;
 import graphql.schema.SelectedField;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
@@ -27,7 +29,10 @@ import java.util.stream.Collectors;
 @Component
 @Slf4j
 @Validated
+@RequiredArgsConstructor
 public class UserMutation implements GraphQLMutationResolver {
+
+    private final UserPublisher publisher;
 
     public User createUser(@Valid CreateUserInput input, DataFetchingEnvironment environment) {
         log.info("Creating user. input: {}", input);
@@ -58,7 +63,7 @@ public class UserMutation implements GraphQLMutationResolver {
         HttpServletRequest request = context.getHttpServletRequest();
         HttpServletResponse response = context.getHttpServletResponse();
 
-        return User.builder()
+        User user = User.builder()
                 .id(UUID.randomUUID())
                 .name(input.getName())
                 .sex(input.getSex())
@@ -67,5 +72,8 @@ public class UserMutation implements GraphQLMutationResolver {
                 .createdAt(input.getCreatedAt())
                 .address(input.getAddress())
                 .build();
+
+        publisher.publish(user);
+        return user;
     }
 }

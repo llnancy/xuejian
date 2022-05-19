@@ -75,34 +75,34 @@
             <artifactId>altair-spring-boot-starter</artifactId>
             <version>${graphql.starter.version}</version>
         </dependency>
-        <!--        &lt;!&ndash;可以查看graphql之间的关系图&ndash;&gt;-->
-        <!--        <dependency>-->
-        <!--            <groupId>com.graphql-java-kickstart</groupId>-->
-        <!--            <artifactId>voyager-spring-boot-starter</artifactId>-->
-        <!--            <version>${graphql.starter.version}</version>-->
-        <!--            <scope>runtime</scope>-->
-        <!--        </dependency>-->
-                <!-- graphql-java scalar -->
-                <dependency>
+        <!--可以查看graphql之间的关系图-->
+        <dependency>
+            <groupId>com.graphql-java-kickstart</groupId>
+            <artifactId>voyager-spring-boot-starter</artifactId>
+            <version>${graphql.starter.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <!-- graphql-java scalar -->
+        <dependency>
+            <groupId>com.graphql-java</groupId>
+            <artifactId>graphql-java-extended-scalars</artifactId>
+            <version>${graphql.extended.scalars.version}</version>
+            <exclusions>
+                <exclusion>
                     <groupId>com.graphql-java</groupId>
-                    <artifactId>graphql-java-extended-scalars</artifactId>
-                    <version>${graphql.extended.scalars.version}</version>
-                    <exclusions>
-                        <exclusion>
-                            <groupId>com.graphql-java</groupId>
-                            <artifactId>graphql-java</artifactId>
-                        </exclusion>
-                    </exclusions>
-                </dependency>
-                <!-- JSR303 校验 -->
-                <dependency>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-validation</artifactId>
-                </dependency>
-        <!--        &lt;!&ndash; reactor &ndash;&gt;-->
-        <!--        <dependency>-->
-        <!--            <groupId>io.projectreactor</groupId>-->
-        <!--            <artifactId>reactor-core</artifactId>-->
-        <!--        </dependency>-->
+                    <artifactId>graphql-java</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!-- JSR303 校验 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+        <!-- reactor -->
+        <dependency>
+            <groupId>io.projectreactor</groupId>
+            <artifactId>reactor-core</artifactId>
+        </dependency>
     </dependencies>
 </project>

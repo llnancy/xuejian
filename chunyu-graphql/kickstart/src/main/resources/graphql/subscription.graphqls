@@ -1,0 +1,4 @@
+type Subscription {
+    users: User
+    user(name: String!): User
+}

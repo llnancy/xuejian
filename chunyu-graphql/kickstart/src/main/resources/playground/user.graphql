@@ -31,3 +31,17 @@ mutation CREATE_USER($name: String!, $createdOn: LocalDateTime) {
         createdAt
     }
 }
+
+subscription USER_CREATE_ID($name: String!) {
+    user(name: $name) {
+        id
+        name
+    }
+}
+
+subscription USERS {
+    users {
+        id
+        name
+    }
+}
