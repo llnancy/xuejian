@@ -10,6 +10,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
  */
 @SpringBootApplication
 public class ChunYuApolloApplication {
+
     public static void main(String[] args) {
         new SpringApplicationBuilder(ChunYuApolloApplication.class)
                 .web(WebApplicationType.SERVLET)

@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 @Component
 @ConfigurationProperties(prefix = "user-service")
 public class UserServiceConfig {
+
     private String baseDomain;
 
     private Urls urls;

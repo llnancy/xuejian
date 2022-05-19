@@ -12,6 +12,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
  */
 @SpringBootApplication
 public class ChunYuConfigureApplication {
+
     public static void main(String[] args) {
         // SpringApplication.run(ChunYuConfigureApplication.class, args);
         new SpringApplicationBuilder(ChunYuConfigureApplication.class)

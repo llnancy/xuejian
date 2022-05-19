@@ -22,6 +22,7 @@ import static com.baomidou.mybatisplus.generator.config.rules.DbColumnType.INTEG
  * @since JDK8 2022/3/9
  */
 public class MybatisPlusGenerator {
+
     public static void main(String[] args) {
         FastAutoGenerator.create(new DataSourceConfig
                         .Builder("jdbc:mysql://localhost:3306/chunyu_mp?useUnicode=true&characterEncoding=UTF-8&useSSL=false", "root", "123456")

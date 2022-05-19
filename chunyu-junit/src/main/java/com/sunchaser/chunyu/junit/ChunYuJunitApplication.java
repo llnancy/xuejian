@@ -10,8 +10,9 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
  */
 @SpringBootApplication
 public class ChunYuJunitApplication {
+
     public static void main(String[] args) {
-        new SpringApplicationBuilder(com.sunchaser.chunyu.junit.ChunYuJunitApplication.class)
+        new SpringApplicationBuilder(ChunYuJunitApplication.class)
                 .web(WebApplicationType.NONE)
                 .run(args);
     }

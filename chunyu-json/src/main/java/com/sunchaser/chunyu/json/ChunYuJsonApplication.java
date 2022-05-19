@@ -12,6 +12,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
  */
 @SpringBootApplication
 public class ChunYuJsonApplication {
+
     public static void main(String[] args) {
         new SpringApplicationBuilder(ChunYuJsonApplication.class)
                 .web(WebApplicationType.SERVLET)

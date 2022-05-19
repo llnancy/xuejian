@@ -22,7 +22,7 @@
 
 如果是使用在线网站或`Spring Initializr`创建的`Spring Boot`项目，则默认生成的配置文件是`application.properties`。我们也可以手动替换成`application.yml`或`application.yaml`文件，`.yml`和`.yaml`结尾的都是`yaml`格式，没有本质上的区别，`spring-boot-starter-parent`中对这三种后缀的文件按顺序进行了引入：
 
-```
+```xml
     <resources>
       <resource>
         <directory>${basedir}/src/main/resources</directory>
@@ -136,6 +136,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @Slf4j
 public class AppController {
+    
     @Value("${title}")
     private String title;
 
@@ -178,6 +179,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @Slf4j
 public class AppController {
+    
     @Value("${chunyu.user.name}")
     private String name;
     @Value("${chunyu.user.age}")
@@ -348,6 +350,7 @@ import org.springframework.stereotype.Component;
 @Component
 @ConfigurationProperties(prefix = "user-service")
 public class UserServiceConfig {
+    
     private String baseDomain;
 
     private Urls urls;
@@ -428,6 +431,7 @@ java -jar app.jar --server.port=8081
 ```java
 @SpringBootApplication
 public class ChunYuConfigureApplication {
+    
     public static void main(String[] args) {
         // SpringApplication.run(ChunYuConfigureApplication.class, args);
         new SpringApplicationBuilder(ChunYuConfigureApplication.class)

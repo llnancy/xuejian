@@ -12,6 +12,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
  */
 @SpringBootApplication
 public class ChunYuMybatisPlusApplication {
+
     public static void main(String[] args) {
         new SpringApplicationBuilder(ChunYuMybatisPlusApplication.class)
                 .web(WebApplicationType.SERVLET)

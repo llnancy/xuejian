@@ -16,6 +16,7 @@ import java.util.List;
 @Getter
 @Setter
 public class ChunYuApolloConfig {
+
     private String name;
     private List<String> jsonstr;
 }

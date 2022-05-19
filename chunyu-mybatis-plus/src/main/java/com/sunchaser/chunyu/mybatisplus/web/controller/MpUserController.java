@@ -27,6 +27,7 @@ import java.util.stream.Collectors;
 @RequestMapping("/mp-user")
 @Slf4j
 public class MpUserController {
+
     @Autowired
     private MpUserService mpUserService;
 

@@ -11,24 +11,21 @@
 本文主要介绍创建一个`Spring Boot`项目的方式，有以下方式可供选择：
 
 1. 在线网站：导出压缩包后导入`IDEA`。
-
-- `Spring`官方：[`https://start.spring.io`](https://start.spring.io)
-- `Aliyun`：[`https://start.aliyun.com`](https://start.aliyun.com)
-
+	- `Spring`：[`https://start.spring.io`](https://start.spring.io)
+	- `Aliyun`：[`https://start.aliyun.com`](https://start.aliyun.com)
 2. `IDEA`：集成在线网站或从零搭建
-
-- `Spring Initializr`
-- `maven`
+	- `Spring Initializr`
+	- `maven`
 
 ## 在线网站创建
 
 `Spring`官方：[`https://start.spring.io`](https://start.spring.io)
 
-![start.spring.io](https://cdn.jsdelivr.net/gh/sunchaser-lilu/sunchaser-cdn@master/images/java-ee/springboot/helloworld/start.spring.io.png)
+![start.spring.io](https://posts-cdn.lilu.org.cn/2022/05/1920a9be1340a33f4518a40910da6702b6e88fc2.png)
 
 `Aliyun`：[`https://start.aliyun.com`](https://start.aliyun.com)
 
-![start.aliyun.com](https://cdn.jsdelivr.net/gh/sunchaser-lilu/sunchaser-cdn@master/images/java-ee/springboot/helloworld/start.aliyun.com.png)
+![start.aliyun.com](https://posts-cdn.lilu.org.cn/2022/05/1920a96fe7c583bda3cdfc78a4bc96b39fc3faae.png)
 
 这种方式只需要填好相关配置信息点击下载就可以，下载的压缩包里面是一个完整的项目工程文件，还包含一些`maven`相关的文件，个人不是很推荐这种方式。
 
@@ -36,17 +33,17 @@
 
 `Spring Initializr`：
 
-![Spring Initializr](https://cdn.jsdelivr.net/gh/sunchaser-lilu/sunchaser-cdn@master/images/java-ee/springboot/helloworld/spring-initializr.png)
+![spring-initializr](https://posts-cdn.lilu.org.cn/2022/05/192023a6cf9802d71d4ef0417806652390e6c5f6.png)
 
 修改`Server URL`即可修改在线地址。点击`Next`可进入下一步：
 
 `start.spring.io`：
 
-![Spring Initializr Next](https://cdn.jsdelivr.net/gh/sunchaser-lilu/sunchaser-cdn@master/images/java-ee/springboot/helloworld/spring-initializr-next.png)
+![spring-initializr-next](https://posts-cdn.lilu.org.cn/2022/05/19203f19e691eb03e7f02bc47d4794f7416f8900.png)
 
 `start.aliyun.com`：
 
-![Aliyun Initializr Next](https://cdn.jsdelivr.net/gh/sunchaser-lilu/sunchaser-cdn@master/images/java-ee/springboot/helloworld/aliyun-initializr-next.png)
+![aliyun-initializr-next](https://posts-cdn.lilu.org.cn/2022/05/192073dd84dabc7c58d81ce128615abce82cf222.png)
 
 可以看到`Aliyun`的集成了一些阿里商业化组件。这个只是集成在线网站的功能，个人不太推荐使用。
 
@@ -56,15 +53,15 @@
 
 创建`maven`空模板项目：
 
-![maven module](https://cdn.jsdelivr.net/gh/sunchaser-lilu/sunchaser-cdn@master/images/java-ee/springboot/helloworld/maven-module.png)
+![maven-module](https://posts-cdn.lilu.org.cn/2022/05/1920ab4092d827ea5343cd3fff07ce202cff03f1.png)
 
 点击`Next`填写相关信息：
 
-![maven module Next](https://cdn.jsdelivr.net/gh/sunchaser-lilu/sunchaser-cdn@master/images/java-ee/springboot/helloworld/maven-module-next.png)
+![maven-module-next](https://posts-cdn.lilu.org.cn/2022/05/1920b6540519d12c0b6fa46540a3207ca30f3ac6.png)
 
 创建好的项目工程结构如下：
 
-![maven module Directory Structure](https://cdn.jsdelivr.net/gh/sunchaser-lilu/sunchaser-cdn@master/images/java-ee/springboot/helloworld/maven-module-dir-struct.png)
+![maven-module-dir-struct](https://posts-cdn.lilu.org.cn/2022/05/19207c50ed38b71b0ec9bc7dfaae9f9a2b54b7c2.png)
 
 可以看到是非常干净的`maven`项目结构。打开`pom.xml`文件添加`Spring Boot`的依赖，这里有`2`种方式：
 
@@ -164,6 +161,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 @SpringBootApplication
 public class ChunYuHelloWorldApplication {
+    
     public static void main(String[] args) {
         SpringApplication.run(ChunYuHelloWorldApplication.class, args);
     }
@@ -188,6 +186,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
  */
 @SpringBootApplication
 public class ChunYuHelloWorldApplication {
+    
     public static void main(String[] args) {
         // SpringApplication.run(ChunYuHelloWorldApplication.class, args);
         new SpringApplicationBuilder(ChunYuHelloWorldApplication.class)

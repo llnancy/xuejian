@@ -19,6 +19,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Person {
+
     private String name;
     private Integer age;
     // @JsonFormat(pattern = "yyyy-MM-dd")
