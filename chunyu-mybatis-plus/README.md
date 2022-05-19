@@ -1,3 +1,22 @@
+- [`Spring Boot`整合`MyBatis-Plus`快速实现单表`CRUD`](#spring-boot整合mybatis-plus快速实现单表crud)
+  - [数据表准备](#数据表准备)
+  - [创建工程](#创建工程)
+  - [代码生成](#代码生成)
+  - [生成代码介绍](#生成代码介绍)
+    - [`entity`](#entity)
+    - [`mapper`](#mapper)
+    - [`service`&`impl`](#serviceimpl)
+    - [`controller`](#controller)
+  - [基础配置](#基础配置)
+  - [使用`BaseMapper`](#使用basemapper)
+  - [使用`IService`](#使用iservice)
+  - [条件构造器`Wrapper`](#条件构造器wrapper)
+  - [插件](#插件)
+    - [分页插件](#分页插件)
+      - [配置类](#配置类)
+    - [使用分页](#使用分页)
+  - [其它](#其它)
+
 # `Spring Boot`整合`MyBatis-Plus`快速实现单表`CRUD`
 
 [`MyBatis-Plus`](https://baomidou.com/)（简称 `MP`）是一个`MyBatis`的增强工具，在`MyBatis`的基础上只做增强不做改变，为简化开发、提高效率而生。本文主要介绍在`Spring Boot`中整合`Mybatis-Plus`快速实现`MySQL`单表`crud`的操作。

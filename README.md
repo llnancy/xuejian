@@ -12,3 +12,4 @@
 - [`Spring Boot`整合`MyBatis-Plus`快速实现单表`CRUD`](./chunyu-mybatis-plus/README.md)
 - [`Spring Boot`整合分布式配置中心`Apollo`](./chunyu-apollo/README.md)
 - [`Spring Boot`整合消息队列`RabbitMQ`](./chunyu-rabbitmq/README.md)
+- [`Spring Boot`整合`GraphQL`（基于`kickstart`）](./chunyu-graphql/kickstart/README.md)
