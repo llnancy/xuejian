@@ -11,11 +11,11 @@
 本文主要介绍创建一个`Spring Boot`项目的方式，有以下方式可供选择：
 
 1. 在线网站：导出压缩包后导入`IDEA`。
-	- `Spring`：[`https://start.spring.io`](https://start.spring.io)
-	- `Aliyun`：[`https://start.aliyun.com`](https://start.aliyun.com)
+    - `Spring`：[`https://start.spring.io`](https://start.spring.io)
+    - `Aliyun`：[`https://start.aliyun.com`](https://start.aliyun.com)
 2. `IDEA`：集成在线网站或从零搭建
-	- `Spring Initializr`
-	- `maven`
+    - `Spring Initializr`
+    - `maven`
 
 ## 在线网站创建
 
