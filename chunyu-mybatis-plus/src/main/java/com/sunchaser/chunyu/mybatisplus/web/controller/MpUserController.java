@@ -1,11 +1,11 @@
 package com.sunchaser.chunyu.mybatisplus.web.controller;
 
+import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.sunchaser.mojian.base.util.JsonUtils;
 import com.sunchaser.chunyu.mybatisplus.repository.entity.MpUser;
 import com.sunchaser.chunyu.mybatisplus.service.MpUserService;
 import lombok.extern.slf4j.Slf4j;
@@ -209,7 +209,7 @@ public class MpUserController {
     public List<MpUser> pageList(@RequestParam Integer pageNo, @RequestParam Integer pageSize) {
         Page<MpUser> page = new Page<>(pageNo, pageSize);
         Page<MpUser> mpUserPage = mpUserService.getBaseMapper().selectPage(page, Wrappers.emptyWrapper());
-        log.info("mpUserPage={}", JsonUtils.toJsonString(mpUserPage));
+        log.info("mpUserPage={}", JSONUtil.toJsonStr(mpUserPage));
         return mpUserPage.getRecords();
     }
 }

@@ -75,10 +75,11 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
         </dependency>
+        <!-- hutool-json -->
         <dependency>
-            <groupId>com.sunchaser.mojian</groupId>
-            <artifactId>sunchaser-mojian-base</artifactId>
-            <version>${mojian.base.version}</version>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-json</artifactId>
+            <version>5.8.5</version>
         </dependency>
     </dependencies>
 </project>
