@@ -1,10 +1,11 @@
-- [第一个`Spring Boot`项目](#第一个springboot项目)
-    - [在线网站创建](#在线网站创建)
-    - [`IDEA`中使用`Spring Initializr`创建](#idea中使用spring-initializr创建)
-    - [`IDEA`中使用`Maven`创建](#idea中使用maven创建)
-    - [编写启动类](#编写启动类)
-    - [编写测试类](#编写测试类)
-    - [启动`Spring Boot`](#启动spring-boot)
+* [第一个Spring Boot项目](#第一个spring-boot项目)
+* [在线网站创建](#在线网站创建)
+    * [基于Spring Initializr](#基于spring-initializr)
+    * [基于Maven创建](#基于maven创建)
+    * [基于Gradle](#基于gradle)
+* [编写启动类](#编写启动类)
+* [编写Controller](#编写controller)
+* [启动Spring Boot](#启动spring-boot)
 
 # 第一个`Spring Boot`项目
 
