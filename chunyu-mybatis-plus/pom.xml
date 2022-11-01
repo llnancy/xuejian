@@ -10,6 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>chunyu-mybatis-plus</artifactId>
+    <description>整合框架 Mybatis-Plus</description>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -18,14 +19,10 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <!-- Spring Boot 版本-->
         <springboot.version>2.6.4</springboot.version>
-        <!-- mojian base依赖 -->
-        <mojian.base.version>1.0.0-SNAPSHOT</mojian.base.version>
-        <!-- MyBatis-Plus依赖版本-->
-        <mybatisplus.version>3.5.1</mybatisplus.version>
+        <!-- MyBatis-Plus 版本-->
+        <mybatisplus.version>3.5.2</mybatisplus.version>
         <!-- 代码生成器版本 -->
         <mybatisplus.generate.version>3.5.2</mybatisplus.generate.version>
-        <!-- 模板引擎freemarker版本 -->
-        <freemarker.version>2.3.31</freemarker.version>
     </properties>
 
     <dependencyManagement>
@@ -52,7 +49,7 @@
             <artifactId>mybatis-plus-boot-starter</artifactId>
             <version>${mybatisplus.version}</version>
         </dependency>
-        <!-- mybatis plus generate代码生成器 -->
+        <!-- mybatis plus generate 代码生成器 -->
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-generator</artifactId>
@@ -64,11 +61,10 @@
             <artifactId>mysql-connector-java</artifactId>
             <scope>runtime</scope>
         </dependency>
-        <!-- 模板引擎freemarker -->
+        <!-- 模板引擎 freemarker -->
         <dependency>
             <groupId>org.freemarker</groupId>
             <artifactId>freemarker</artifactId>
-            <version>${freemarker.version}</version>
         </dependency>
         <!-- lombok -->
         <dependency>
