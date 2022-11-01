@@ -1,25 +1,28 @@
 package com.sunchaser.chunyu.mybatisplus.repository.entity;
 
-import com.baomidou.mybatisplus.annotation.*;
-import lombok.Data;
-
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableLogic;
+import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import lombok.Data;
 
 /**
  * Mybatis-Plus 用户表
  *
  * @author sunchaser admin@lilu.org.cn
- * @since JDK8 2022-03-10
+ * @since JDK8 2022/11/01
  */
 @Data
 @TableName("mp_user")
-public class MpUser implements Serializable {
+public class UserEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     /**
-     * 主键ID
+     * 自增主键
      */
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
@@ -51,9 +54,9 @@ public class MpUser implements Serializable {
     private LocalDateTime updateTime;
 
     /**
-     * 状态：0：正常；1：删除
+     * 状态（0：正常；1：删除）
      */
     @TableLogic
-    private Integer state;
+    private Integer isDeleted;
 
 }
