@@ -1,6 +1,9 @@
 package com.sunchaser.chunyu.mybatisplus.config;
 
 import cn.hutool.core.date.DatePattern;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
@@ -22,26 +25,12 @@ import java.time.LocalTime;
 public class JacksonConfig {
 
     @Bean
-    public LocalDateTimeSerializer localDateTimeSerializer() {
-        return new LocalDateTimeSerializer(DatePattern.NORM_DATETIME_FORMATTER);
-    }
-
-    @Bean
-    public LocalDateSerializer localDateSerializer() {
-        return new LocalDateSerializer(DatePattern.NORM_DATE_FORMATTER);
-    }
-
-    @Bean
-    public LocalTimeSerializer localTimeSerializer() {
-        return new LocalTimeSerializer(DatePattern.NORM_TIME_FORMATTER);
-    }
-
-    @Bean
     public Jackson2ObjectMapperBuilderCustomizer jackson2ObjectMapperBuilderCustomizer() {
-        return builder -> {
-            builder.serializerByType(LocalDateTime.class, localDateTimeSerializer());
-            builder.serializerByType(LocalDate.class, localDateSerializer());
-            builder.serializerByType(LocalTime.class, localTimeSerializer());
-        };
+        return builder -> builder.serializerByType(LocalDateTime.class, new LocalDateTimeSerializer(DatePattern.NORM_DATETIME_FORMATTER))
+                .serializerByType(LocalDate.class, new LocalDateSerializer(DatePattern.NORM_DATE_FORMATTER))
+                .serializerByType(LocalTime.class, new LocalTimeSerializer(DatePattern.NORM_TIME_FORMATTER))
+                .deserializerByType(LocalDateTime.class, new LocalDateTimeDeserializer(DatePattern.NORM_DATETIME_FORMATTER))
+                .deserializerByType(LocalDate.class, new LocalDateDeserializer(DatePattern.NORM_DATE_FORMATTER))
+                .deserializerByType(LocalTime.class, new LocalTimeDeserializer(DatePattern.NORM_TIME_FORMATTER));
     }
 }
