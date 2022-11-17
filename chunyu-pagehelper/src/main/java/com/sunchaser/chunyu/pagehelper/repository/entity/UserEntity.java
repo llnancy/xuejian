@@ -1,10 +1,5 @@
 package com.sunchaser.chunyu.pagehelper.repository.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableLogic;
-import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -17,7 +12,6 @@ import java.time.LocalDateTime;
  * @since JDK8 2022/11/01
  */
 @Data
-@TableName("mp_user")
 public class UserEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -25,13 +19,11 @@ public class UserEntity implements Serializable {
     /**
      * 自增主键
      */
-    @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
     /**
      * 姓名
      */
-    @TableField("`name`")
     private String name;
 
     /**
@@ -57,7 +49,6 @@ public class UserEntity implements Serializable {
     /**
      * 状态（0：正常；1：删除）
      */
-    @TableLogic
     private Integer isDeleted;
 
 }
