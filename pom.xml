@@ -19,6 +19,7 @@
         <module>chunyu-apollo</module>
         <module>chunyu-rabbitmq</module>
         <module>chunyu-graphql</module>
+        <module>chunyu-pagehelper</module>
     </modules>
 
     <properties>
@@ -26,6 +27,7 @@
         <maven.compiler.target>8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <!-- 此处声明版本号，方便统一升级版本 -->
+        <springboot.version>2.6.4</springboot.version>
     </properties>
-
 </project>
