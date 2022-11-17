@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: chunyu-pagehelper
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/chunyu_mp?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    username: root
+    password: 123456
+
+# 打印执行 sql，生产环境关闭
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+# 分页插件配置项
+pagehelper:
+  # 配置使用的数据库方言
+  helper-dialect: mysql
+  # 配置分页参数合理化。pageNum <= 0 时查询第一页，pageNum > totalPages 时查询最后一页
+  reasonable: true
+  # 配置 startPage 方法参数映射
+  params: pageNum=pageNo
