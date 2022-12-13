@@ -4,22 +4,22 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.sunchaser.chunyu</groupId>
-    <artifactId>sunchaser-chunyu</artifactId>
+    <groupId>io.github.llnancy</groupId>
+    <artifactId>xuejian-parent</artifactId>
     <packaging>pom</packaging>
     <version>0.0.1-SNAPSHOT</version>
     <modules>
-        <module>chunyu-hello-world</module>
-        <module>chunyu-configure</module>
-        <module>chunyu-json</module>
-        <module>chunyu-mybatis-plus</module>
-        <module>chunyu-mongodb</module>
-        <module>chunyu-junit</module>
-        <module>chunyu-druid</module>
-        <module>chunyu-apollo</module>
-        <module>chunyu-rabbitmq</module>
-        <module>chunyu-graphql</module>
-        <module>chunyu-pagehelper</module>
+        <module>xuejian-hello-world</module>
+        <module>xuejian-configure</module>
+        <module>xuejian-json</module>
+        <module>xuejian-mybatis-plus</module>
+        <module>xuejian-mongodb</module>
+        <module>xuejian-junit</module>
+        <module>xuejian-druid</module>
+        <module>xuejian-apollo</module>
+        <module>xuejian-rabbitmq</module>
+        <module>xuejian-graphql</module>
+        <module>xuejian-pagehelper</module>
     </modules>
 
     <properties>

@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: xuejian-graphql-kickstart
+
+graphql:
+  tools:
+    schema-location-pattern: "**/*.graphqls" # graphql schema location
+  servlet:
+    max-query-depth: 13
+    exception-handlers-enabled: true
+    tracing-enabled: true
+  playground:
+    headers:
+      Authorization: SunChaser
+    tabs:
+      - name: User sample query
+        query: classpath:playground/user.graphql
+        variables: classpath:playground/user-variables.json

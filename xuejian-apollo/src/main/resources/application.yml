@@ -1,0 +1,9 @@
+apollo:
+  bootstrap:
+    enabled: true # 注入默认 application namespace 的配置
+    namespaces: application.yml # 注入其它多个 namespace（非默认 application）的配置
+    eagerLoad:
+      enabled: true # 将 Apollo 配置加载提到初始化日志系统之前：可以将日志相关的配置也交由 Apollo 进行管理
+
+app:
+  id: xuejian-apollo
