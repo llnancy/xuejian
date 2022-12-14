@@ -16,12 +16,20 @@ import java.util.UUID;
 @Value
 @Builder
 public class User {
+
     UUID id;
+    
     String name;
+    
     SexEnum sex;
+    
     Integer age;
+    
     Address address;
+    
     User son;
+    
     LocalDate createdOn;
+    
     LocalDateTime createdAt;
 }

@@ -62,7 +62,7 @@ public class MybatisPlusGenerator {
                             .enableLombok() // 开启 lombok
                             .formatFileName("%sEntity") // 实体类以 Entity 结尾
                             .logicDeleteColumnName("is_deleted") // 逻辑删除字段
-                            // .superClass("com.sunchaser.shushan.wulingzhu.repository.entity.BaseEntity")
+                            // .superClass("io.github.llnancy.xuejian.mybatisplus.repository.entity.BaseEntity")
                             // .addSuperEntityColumns("id", "create_time", "update_time", "is_deleted")// 设置实体公共父类字段
                             .controllerBuilder() // Controller 策略配置
                             .enableHyphenStyle() // 驼峰转连字符 -

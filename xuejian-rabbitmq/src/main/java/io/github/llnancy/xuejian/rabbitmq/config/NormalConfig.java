@@ -1,7 +1,12 @@
 package io.github.llnancy.xuejian.rabbitmq.config;
 
 import io.github.llnancy.xuejian.rabbitmq.config.property.RabbitMQProperties;
-import org.springframework.amqp.core.*;
+import org.springframework.amqp.core.Binding;
+import org.springframework.amqp.core.BindingBuilder;
+import org.springframework.amqp.core.Exchange;
+import org.springframework.amqp.core.ExchangeBuilder;
+import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.core.QueueBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -31,12 +36,12 @@ public class NormalConfig {
 
     /**
      * 创建队列。
-     * durable方法创建的是持久化队列
-     * deadLetterExchange方法设置死信交换机
-     * deadLetterRoutingKey方法设置死信队列绑定键
-     * maxLength方法设置队列长度
-     * ttl方法设置队列延迟时间
-     * maxPriority方法设置优先队列
+     * durable 方法创建的是持久化队列
+     * deadLetterExchange 方法设置死信交换机
+     * deadLetterRoutingKey 方法设置死信队列绑定键
+     * maxLength 方法设置队列长度
+     * ttl 方法设置队列延迟时间
+     * maxPriority 方法设置优先队列
      *
      * @return Queue
      */

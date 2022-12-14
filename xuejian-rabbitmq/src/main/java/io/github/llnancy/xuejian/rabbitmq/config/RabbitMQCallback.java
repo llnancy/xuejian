@@ -35,7 +35,7 @@ public class RabbitMQCallback implements InitializingBean, RabbitTemplate.Confir
 
     /**
      * 生产者发布确认回调
-     * 需要开启spring.rabbitmq.publisher-confirm-type参数，建议设置为correlated，异步回调。
+     * 需要开启 spring.rabbitmq.publisher-confirm-type 参数，建议设置为 correlated，异步回调。
      *
      * @param correlationData 可保存消息ID和消息内容，需要发送方在消息发送时自行设置
      * @param ack             true：交换机收到消息；false：交换机未收到消息
@@ -53,8 +53,8 @@ public class RabbitMQCallback implements InitializingBean, RabbitTemplate.Confir
 
     /**
      * 交换机路由消息至队列失败 - 消息回退回调
-     * 需要开启spring.rabbitmq.publisher-returns参数，设置为true。
-     * 同时需要配合spring.rabbitmq.template.mandatory参数使用，也设置为true。
+     * 需要开启 spring.rabbitmq.publisher-returns 参数，设置为 true。
+     * 同时需要配合 spring.rabbitmq.template.mandatory 参数使用，也设置为 true。
      *
      * @param returned 退回的消息
      */

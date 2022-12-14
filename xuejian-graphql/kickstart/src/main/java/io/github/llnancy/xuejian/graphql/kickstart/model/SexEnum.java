@@ -7,7 +7,9 @@ package io.github.llnancy.xuejian.graphql.kickstart.model;
  * @since JDK8 2022/5/10
  */
 public enum SexEnum {
+
     MAN,
+    
     WOMAN,
     ;
 }

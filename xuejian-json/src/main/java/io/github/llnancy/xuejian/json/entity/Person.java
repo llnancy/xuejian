@@ -21,8 +21,11 @@ import java.util.Date;
 public class Person {
 
     private String name;
+    
     private Integer age;
+    
     // @JsonFormat(pattern = "yyyy-MM-dd")
     private Date birthday;
+    
     private LocalDateTime createTime;
 }

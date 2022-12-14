@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
- * topic交换机 消息生产者
+ * topic 交换机 消息生产者
  *
  * @author sunchaser admin@lilu.org.cn
  * @since JDK8 2022/4/25

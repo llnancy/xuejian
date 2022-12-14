@@ -1,19 +1,19 @@
 spring:
   rabbitmq:
     host: 127.0.0.1 # host
-    port: 5672 # 端口号，默认值5672。
-    username: guest # 用户名，默认值guest。
-    password: guest # 密码，默认值guest。
-    virtual-host: / # 虚拟主机，默认值/。
-    publisher-confirm-type: correlated # 开启生产者发布确认：异步模式。会触发ConfirmCallback回调。
-    publisher-returns: true # 开启消息回退，消息路由不到合适的队列时，触发ReturnsCallback回调，配合RabbitTemplate的mandatory=true使用。
+    port: 5672 # 端口号，默认值 5672。
+    username: guest # 用户名，默认值 guest。
+    password: guest # 密码，默认值 guest。
+    virtual-host: / # 虚拟主机，默认值 /。
+    publisher-confirm-type: correlated # 开启生产者发布确认：异步模式。会触发 ConfirmCallback 回调。
+    publisher-returns: true # 开启消息回退，消息路由不到合适的队列时，触发 ReturnsCallback 回调，配合 RabbitTemplate的mandatory=true使用。
     template:
-      mandatory: true # true：消息路由不到合适的队列时，强制触发ReturnsCallback回调。
+      mandatory: true # true：消息路由不到合适的队列时，强制触发 ReturnsCallback 回调。
     listener:
-      # 容器类型：默认值为simple，即SimpleMessageListenerContainer。
+      # 容器类型：默认值为 simple，即 SimpleMessageListenerContainer。
       type: simple
       simple:
-        acknowledge-mode: manual # manual：开启消费端手动ack应答。默认值为auto自动应答。
+        acknowledge-mode: manual # manual：开启消费端手动 ack 应答。默认值为 auto 自动应答。
   application:
     name: xuejian-rabbitmq
 

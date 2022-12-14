@@ -16,8 +16,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Address {
+
     private String province;
+    
     private String city;
+    
     private String area;
+    
     private String detailAddress;
 }

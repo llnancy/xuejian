@@ -8,7 +8,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Sinks;
 
 /**
- * user发布者
+ * user 发布者
  *
  * @author sunchaser admin@lilu.org.cn
  * @since JDK8 2022/5/19
@@ -18,6 +18,7 @@ import reactor.core.publisher.Sinks;
 public class UserPublisher {
 
     private final Sinks.Many<User> sink;
+
     private final Flux<User> flux;
 
     public UserPublisher() {

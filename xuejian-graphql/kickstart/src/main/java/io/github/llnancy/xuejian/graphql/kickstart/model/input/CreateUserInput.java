@@ -15,11 +15,17 @@ import java.time.LocalDateTime;
  */
 @Data
 public class CreateUserInput {
+
     @NotBlank
     private String name;
+    
     private SexEnum sex;
+    
     private Integer age;
+    
     private Address address;
+    
     LocalDateTime createdOn;
+    
     LocalDateTime createdAt;
 }

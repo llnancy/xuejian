@@ -1,48 +1,48 @@
-- [`Spring Boot`整合`GraphQL`](#spring-boot整合graphql)
+- [Spring Boot 整合 GraphQL](#spring-boot-整合-graphql)
 - [创建工程](#创建工程)
-- [第一个`GraphQL`查询](#第一个graphql查询)
-  - [编写`Schema`](#编写schema)
-  - [编写`Java Bean`](#编写java-bean)
+- [第一个 GraphQL 查询](#第一个-graphql-查询)
+  - [编写 Schema](#编写-schema)
+  - [编写 Java Bean](#编写-java-bean)
   - [编写查询解析器](#编写查询解析器)
-- [`GraphQL IDE`](#graphql-ide)
-  - [`Postman`](#postman)
-  - [`Playground`](#playground)
-    - [初始化`Tab`](#初始化tab)
-  - [`GraphiQL`](#graphiql)
-  - [`Altair`](#altair)
-- [`Schema`最佳实践](#schema最佳实践)
+- [GraphQL IDE](#graphql-ide)
+  - [Postman](#postman)
+  - [Playground](#playground)
+    - [初始化 Tab](#初始化-tab)
+  - [GraphiQL](#graphiql)
+  - [Altair](#altair)
+- [Schema 最佳实践](#schema-最佳实践)
   - [面向对象](#面向对象)
   - [枚举](#枚举)
   - [注释](#注释)
   - [校验](#校验)
     - [非空](#非空)
-    - [`JSR303`校验](#jsr303校验)
+    - [JSR303 校验](#jsr303-校验)
     - [最大查询深度](#最大查询深度)
 - [服务端最佳实践](#服务端最佳实践)
   - [子解析器](#子解析器)
   - [全局异常处理](#全局异常处理)
-  - [`DataFetcherResult`包装返回结果](#datafetcherresult包装返回结果)
+  - [DataFetcherResult 包装返回结果](#datafetcherresult-包装返回结果)
   - [异步](#异步)
-  - [`Mutation`](#mutation)
-    - [编写`Schema`](#编写schema-1)
-    - [编写`Java Bean`](#编写java-bean-1)
-    - [编写`Mutation`解析器](#编写mutation解析器)
+  - [Mutation](#mutation)
+    - [编写 Schema](#编写-schema-1)
+    - [编写 Java Bean](#编写-java-bean-1)
+    - [编写 Mutation 解析器](#编写-mutation-解析器)
     - [客户端调用](#客户端调用)
   - [文件上传](#文件上传)
   - [`DataFetchingEnvironment`](#datafetchingenvironment)
-  - [`Scalar`](#scalar)
-    - [扩展`Scalar`类型](#扩展scalar类型)
-    - [自定义`Scalar`类型](#自定义scalar类型)
-  - [`Listener`监听器](#listener监听器)
-  - [`GraphQLContext`上下文](#graphqlcontext上下文)
-  - [`Instrumentation`](#instrumentation)
-  - [`Tracing`链路追踪](#tracing链路追踪)
-  - [`Subscription`发布订阅](#subscription发布订阅)
+  - [Scalar](#scalar)
+    - [扩展 Scalar 类型](#扩展-scalar-类型)
+    - [自定义 Scalar 类型](#自定义-scalar-类型)
+  - [Listener 监听器](#listener-监听器)
+  - [GraphQLContext 上下文](#graphqlcontext-上下文)
+  - [Instrumentation](#instrumentation)
+  - [Tracing 链路追踪](#tracing-链路追踪)
+  - [Subscription 发布订阅](#subscription-发布订阅)
 - [其它](#其它)
-  - [`IDEA`插件](#idea插件)
-  - [`voyager`](#voyager)
+  - [IDEA 插件](#idea-插件)
+  - [voyager](#voyager)
 
-# `Spring Boot`整合`GraphQL`
+# Spring Boot 整合 GraphQL
 
 核心依赖：
 
@@ -57,7 +57,7 @@
 
 # 创建工程
 
-在`chunyu-graphql`模块中创建子模块`kickstart`，引入`Spring Boot`及`GraphQL`等依赖，`pom.xml`文件如下：
+在 `xuejian-graphql` 模块中创建子模块 `kickstart`，引入 `Spring Boot` 及 `GraphQL` 等依赖，`pom.xml` 文件如下：
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -65,20 +65,16 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>chunyu-graphql</artifactId>
-        <groupId>com.sunchaser.chunyu</groupId>
+        <groupId>io.github.llnancy</groupId>
+        <artifactId>xuejian-graphql</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>kickstart</artifactId>
+    <description>Spring Boot 整合 kickstart 框架</description>
 
     <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <springboot.version>2.6.4</springboot.version>
         <graphql.starter.version>11.1.0</graphql.starter.version>
     </properties>
 
@@ -121,10 +117,10 @@
 </project>
 ```
 
-创建`Spring Boot`启动类`ChunYuKickStartGraphQLApplication.java`：
+创建 `Spring Boot` 启动类 `XueJianKickStartGraphQLApplication.java`：
 
 ```java
-package com.sunchaser.chunyu.graphql.kickstart;
+package io.github.llnancy.xuejian.graphql.kickstart;
 
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -137,18 +133,19 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
  * @since JDK8 2022/5/9
  */
 @SpringBootApplication
-public class ChunYuKickStartGraphQLApplication {
+public class XueJianKickStartGraphQLApplication {
+
     public static void main(String[] args) {
-        new SpringApplicationBuilder(ChunYuKickStartGraphQLApplication.class)
+        new SpringApplicationBuilder(XueJianKickStartGraphQLApplication.class)
                 .web(WebApplicationType.SERVLET)
                 .run(args);
     }
 }
 ```
 
-# 第一个`GraphQL`查询
+# 第一个 GraphQL 查询
 
-默认`GraphQL`的`Schema`文件都存放在`classpath`类路径下，文件后缀名为`.graphqls`。
+默认 `GraphQL` 的 `Schema` 文件都存放在 `classpath` 类路径下，文件后缀名为 `.graphqls`。
 
 ```yml
 graphql:
@@ -156,13 +153,13 @@ graphql:
     schema-location-pattern: "**/*.graphqls" # graphql schema location
 ```
 
-下面以查询用户`User`为例创建第一个`GraphQL Schema`。
+下面以查询用户 `User` 为例创建第一个 `GraphQL Schema`。
 
-按照约定，我们在`resources`目录下创建`graphql/query.graphqls`文件，它被称为`GraphQL`查询文件，之后所有的查询都将写在该文件中。
+按照约定，我们在 `resources` 目录下创建 `graphql/query.graphqls` 文件，它被称为 `GraphQL` 查询文件，之后所有的查询都将写在该文件中。
 
-## 编写`Schema`
+## 编写 Schema
 
-第一个查询`Schema`写法如下：
+第一个查询 `Schema` 写法如下：
 
 ```graphql
 type Query {
@@ -170,9 +167,9 @@ type Query {
 }
 ```
 
-> 语法解读：首先`type: Query {}`定义了该模式的类型是`Query`查询，然后`user(id: ID): User`表示一个方法，接收一个类型为`ID`的`id`参数，返回一个`User`对象。
+> 语法解读：首先 `type: Query {}` 定义了该模式的类型是 `Query` 查询，然后 `user(id: ID): User` 表示一个方法，接收一个类型为 `ID` 的 `id` 参数，返回一个 `User` 对象。
 
-由于`User`暂不存在，所以`IDE`暂时报错，我们创建`graphql/user/user.graphqls`文件，编写内容如下：
+由于 `User` 暂不存在，所以 `IDE` 暂时报错，我们创建 `graphql/user/user.graphqls` 文件，编写内容如下：
 
 ```graphql
 type User {
@@ -184,14 +181,14 @@ type User {
 }
 ```
 
-创建自定义的`type`类型`User`，包含五个字段。
+创建自定义的 `type` 类型 `User`，包含五个字段。
 
-## 编写`Java Bean`
+## 编写 Java Bean
 
-每一个自定义`type`都需要一个`Java`类与之对应。创建`User.java`类，代码如下：
+每一个自定义 `type` 都需要一个 `Java` 类与之对应。创建 `User.java` 类，代码如下：
 
 ```java
-package com.sunchaser.chunyu.graphql.kickstart.model;
+package io.github.llnancy.xuejian.graphql.kickstart.model;
 
 import lombok.Builder;
 import lombok.Value;
@@ -207,26 +204,31 @@ import java.util.UUID;
 @Value
 @Builder
 public class User {
+    
     UUID id;
+    
     String name;
+    
     String sex;
+    
     Integer age;
+    
     String address;
 }
 ```
 
-> `lombok`的`@Value`注解将类和属性声明为`final`并提供属性的`getter`方法；`@Builder`注解提供建造者模式
+> `lombok` 的 `@Value` 注解将类和属性声明为 `final` 并提供属性的 `getter` 方法；`@Builder` 注解提供建造者模式。
 
 ## 编写查询解析器
 
-每个`GraphQL`查询都需要有一个与之匹配的查询解析器`GraphQLQueryResolver`。
+每个 `GraphQL` 查询都需要有一个与之匹配的查询解析器 `GraphQLQueryResolver`。
 
-创建`UserQueryResolver.java`类，代码如下：
+创建 `UserQueryResolver.java` 类，代码如下：
 
 ```java
-package com.sunchaser.chunyu.graphql.kickstart.resolver.user.query;
+package io.github.llnancy.xuejian.graphql.kickstart.resolver.user.query;
 
-import model.io.github.llnancy.xuejian.graphql.kickstart.User;
+import io.github.llnancy.xuejian.graphql.kickstart.model.User;
 import graphql.kickstart.tools.GraphQLQueryResolver;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -256,17 +258,17 @@ public class UserQueryResolver implements GraphQLQueryResolver {
 }
 ```
 
-方法`user`匹配`query.graphqls`文件中的`user`。
+方法 `user` 匹配 `query.graphqls` 文件中的 `user`。
 
-> 这里方法`user`的入参`id`可以指定为`UUID`类型，也可用`String`类型来兼容。
+> 这里方法 `user` 的入参 `id` 可以指定为 `UUID` 类型，也可用 `String` 类型来兼容。
 
-至此，我们的第一个`GraphQL`查询代码就编写完成。
+至此，我们的第一个 `GraphQL` 查询代码就编写完成。
 
-# `GraphQL IDE`
+# GraphQL IDE
 
-`GraphQL`服务端编写完成后我们需要用客户端进行调用，最简单的方式我们可以用`Postman`进行调用，当然`GraphQL`社区也提供了一些高效的`IDE`工具供我们选择，例如`GraphiQL`、`Playground`及`Altair`等。
+`GraphQL` 服务端编写完成后我们需要用客户端进行调用，最简单的方式我们可以用 `Postman` 进行调用，当然 `GraphQL` 社区也提供了一些高效的 `IDE` 工具供我们选择，例如 `GraphiQL`、`Playground` 及 `Altair` 等。
 
-一个典型的`GraphQL`查询写法如下：
+一个典型的 `GraphQL` 查询写法如下：
 
 ```graphql
 {
@@ -279,20 +281,22 @@ public class UserQueryResolver implements GraphQLQueryResolver {
 }
 ```
 
-语法解读：首先用一个花括号`{}`包裹整个语句，然后`user`对应着`query.graphqls`中的`user`，入参`id`是一个`UUID`，最后需要查询`id`、`name`、`sex`和`age`这四个字段。当然我们可根据实际情况增加或减少需要查询的字段。
+语法解读：首先用一个花括号 `{}` 包裹整个语句，然后 `user` 对应着 `query.graphqls` 中的 `user`，入参 `id` 是一个 `UUID`，最后需要查询 `id`、`name`、`sex` 和 `age` 这四个字段。当然我们可根据实际情况增加或减少需要查询的字段。
 
-## `Postman`
+## Postman
 
-`Postman`中的查询示例如下：
+`Postman` 中的查询示例如下：
 
 ![image-20220509195320767](https://posts-cdn.lilu.org.cn/2022/05/09194d8923a1312af468fe167d4b22458b532f15.png)
 
-## [`Playground`](https://github.com/graphql/graphql-playground)
+## Playground
 
-`pom.xml`中添加依赖：
+项目地址：[https://github.com/graphql/graphql-playground](https://github.com/graphql/graphql-playground)
+
+`pom.xml` 依赖：
 
 ```xml
-<!-- graphql的一个网页IDE -->
+<!-- graphql 的一个网页 IDE -->
 <dependency>
     <groupId>com.graphql-java-kickstart</groupId>
     <artifactId>playground-spring-boot-starter</artifactId>
@@ -301,7 +305,7 @@ public class UserQueryResolver implements GraphQLQueryResolver {
 </dependency>
 ```
 
-默认访问路径为[`http://localhost:8080/playground`](http://localhost:8080/playground)。查询示例如下：
+默认访问路径为 [http://localhost:8080/playground](http://localhost:8080/playground)。查询示例如下：
 
 ![image-20220510115358294](https://posts-cdn.lilu.org.cn/2022/05/1011798c3ace501a615e5fdd6f3f3029dfecef5c.png)
 
@@ -348,9 +352,9 @@ graphql:
           - classpath:exampleResponse2.json
 ```
 
-### 初始化`Tab`
+### 初始化 Tab
 
-`Playground`可以在启动时初始化`Tab`，用来提供一些查询示例。
+`Playground` 可以在启动时初始化 `Tab`，用来提供一些查询示例。
 
 ```yml
 graphql:
@@ -406,12 +410,14 @@ mutation CREATE_USER($name: String!) {
 }
 ```
 
-## [`GraphiQL`](https://github.com/graphql/graphiql)
+## GraphiQL
 
-`pom.xml`中添加依赖：
+项目地址：[https://github.com/graphql/graphiql](https://github.com/graphql/graphiql)
+
+`pom.xml` 依赖：
 
 ```xml
-<!-- graphiql 和playground类似 -->
+<!-- graphiql 和 playground 类似 -->
 <dependency>
     <groupId>com.graphql-java-kickstart</groupId>
     <artifactId>graphiql-spring-boot-starter</artifactId>
@@ -419,7 +425,7 @@ mutation CREATE_USER($name: String!) {
 </dependency>
 ```
 
-默认访问路径为[`http://localhost:8080/graphiql`](http://localhost:8080/graphiql)。查询示例如下：
+默认访问路径为 [http://localhost:8080/graphiql](http://localhost:8080/graphiql)。查询示例如下：
 
 ![image-20220510141439077](https://posts-cdn.lilu.org.cn/2022/05/10140f5d1143a97b965fb66b4fd5c8c01ec22cf2.png)
 
@@ -452,9 +458,11 @@ graphql:
       Authorization: "Bearer <your-token>"
 ```
 
-## [`Altair`](https://github.com/altair-graphql/altair)
+## Altair
 
-`pom.xml`中添加依赖：
+项目地址：[https://github.com/altair-graphql/altair](https://github.com/altair-graphql/altair)
+
+`pom.xml` 依赖：
 
 ```xml
 <!-- altair -->
@@ -499,13 +507,13 @@ graphql:
       initial-post-request-script: post-request.graphql
 ```
 
-# `Schema`最佳实践
+# Schema 最佳实践
 
-下面是一些`Schema`设计的最佳实践。
+下面是一些 `Schema` 设计的最佳实践。
 
 ## 面向对象
 
-尽量采用面向对象化的`Schema`设计。例如`User`中的`address`，它可以拆分为省、市、区及详细地址，所以我们最好将它设计为一个单独的`Schema`，这样会更面向对象。创建`graphql/user/address.graphqls`文件，内容如下：
+尽量采用面向对象化的 `Schema` 设计。例如 `User` 中的 `address`，它可以拆分为省、市、区及详细地址，所以我们最好将它设计为一个单独的 `Schema`，这样会更面向对象。创建 `graphql/user/address.graphqls` 文件，内容如下：
 
 ```graphql
 type Address {
@@ -516,10 +524,10 @@ type Address {
 }
 ```
 
-然后将`user.graphqls`中的`address`字段类型修改为`Address`，同时`Java`类`User`中的`address`字段也要同步修改为`Address`类，创建`Address`类如下：
+然后将 `user.graphqls` 中的 `address` 字段类型修改为 `Address`，同时 `Java` 类 `User` 中的 `address` 字段也要同步修改为 `Address` 类，创建 `Address` 类如下：
 
 ```java
-package com.sunchaser.chunyu.graphql.kickstart.model;
+package io.github.llnancy.xuejian.graphql.kickstart.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -537,16 +545,20 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Address {
+    
     private String province;
+    
     private String city;
+    
     private String area;
+    
     private String detailAddress;
 }
 ```
 
 ## 枚举
 
-对于一些取值范围有限的字段，优先使用枚举类型`Schema`。例如`User`中的`sex`，它仅有“男”和“女”两个取值，创建`graphql/user/sex.graphqls`文件，内容如下：
+对于一些取值范围有限的字段，优先使用枚举类型 `Schema`。例如 `User` 中的 `sex`，它仅有“男”和“女”两个取值，创建 `graphql/user/sex.graphqls` 文件，内容如下：
 
 ```graphql
 enum Sex {
@@ -555,10 +567,10 @@ enum Sex {
 }
 ```
 
-然后将`user.graphqls`中的`sex`字段类型修改为`Sex`，同时`Java`类`User`中的`sex`字段也要同步修改为`SexEnum`枚举，创建`SexEnum`枚举类如下：
+然后将 `user.graphqls` 中的 `sex` 字段类型修改为 `Sex`，同时 `Java` 类 `User` 中的 `sex` 字段也要同步修改为 `SexEnum` 枚举，创建 `SexEnum` 枚举类如下：
 
 ```java
-package com.sunchaser.chunyu.graphql.kickstart.model;
+package io.github.llnancy.xuejian.graphql.kickstart.model;
 
 /**
  * SexEnum.java -> sex.graphqls
@@ -567,7 +579,9 @@ package com.sunchaser.chunyu.graphql.kickstart.model;
  * @since JDK8 2022/5/10
  */
 public enum SexEnum {
+
     MAN,
+
     WOMAN,
     ;
 }
@@ -575,28 +589,28 @@ public enum SexEnum {
 
 ## 注释
 
-写注释是一个良好的素养。`.graphql`文件中的注释以`#`开头，例如：
+写注释是一个良好的素养。`.graphql` 文件中的注释以 `#` 开头，例如：
 
 ```graphql
 # All available queries on this graphql server
 type Query {
-    # 根据ID查询用户信息
+    # 根据 ID 查询用户信息
     user(id: ID): User
 }
 ```
 
 ## 校验
 
-`Schema`中的方法的入参出参等可以进行一些基本规则校验。
+`Schema` 中的方法的入参出参等可以进行一些基本规则校验。
 
 ### 非空
 
-方法的入参出参、自定义类型中的字段可以指定为非空（不能为`null`）。类型后面加英文叹号`!`，例如：
+方法的入参出参、自定义类型中的字段可以指定为非空（不能为 `null`）。类型后面加英文叹号 `!`，例如：
 
 ```graphql
 # All available queries on this graphql server
 type Query {
-    # 根据ID查询用户信息
+    # 根据 ID 查询用户信息
     user(id: ID!): User!
 }
 ```
@@ -611,9 +625,9 @@ type User {
 }
 ```
 
-### `JSR303`校验
+### JSR303 校验
 
-`pom.xml`中添加依赖：
+`pom.xml` 依赖：
 
 ```xml
 <!-- JSR303 校验 -->
@@ -623,14 +637,14 @@ type User {
 </dependency>
 ```
 
-可以和`Spring MVC`一样用`JSR303`规范中的注解来校验`Bean`。使用示例如下：
+可以和 `Spring MVC` 一样用 `JSR303` 规范中的注解来校验 `Bean`。使用示例如下：
 
 ```java
-package com.sunchaser.chunyu.graphql.kickstart.resolver.user.query;
+package io.github.llnancy.xuejian.graphql.kickstart.resolver.user.query;
 
-import model.io.github.llnancy.xuejian.graphql.kickstart.Address;
-import model.io.github.llnancy.xuejian.graphql.kickstart.SexEnum;
-import model.io.github.llnancy.xuejian.graphql.kickstart.User;
+import io.github.llnancy.xuejian.graphql.kickstart.model.Address;
+import io.github.llnancy.xuejian.graphql.kickstart.model.SexEnum;
+import io.github.llnancy.xuejian.graphql.kickstart.model.User;
 import graphql.kickstart.tools.GraphQLQueryResolver;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -671,7 +685,7 @@ public class UserQueryResolver implements GraphQLQueryResolver {
 
 ### 最大查询深度
 
-某些情况下`Schema`可能会出现类型嵌套的情况。以`user.graphqls`为例，假设一个`User`有一个“儿子”，即：
+某些情况下 `Schema` 可能会出现类型嵌套的情况。以 `user.graphqls` 为例，假设一个 `User` 有一个“儿子”，即：
 
 ```graphql
 type User {
@@ -685,7 +699,7 @@ type User {
 ```
 
 ```java
-package com.sunchaser.chunyu.graphql.kickstart.model;
+package io.github.llnancy.xuejian.graphql.kickstart.model;
 
 import io.github.llnancy.xuejian.graphql.kickstart.model.Address;
 import io.github.llnancy.xuejian.graphql.kickstart.model.SexEnum;
@@ -703,18 +717,24 @@ import java.util.UUID;
 @Value
 @Builder
 public class User {
+
     UUID id;
+    
     String name;
+    
     SexEnum sex;
+    
     Integer age;
+    
     Address address;
+    
     User son;
 }
 ```
 
 这时查询就会有一个查询深度的概念。例如以下查询：
 
-```
+```graphql
 {
   user(id: "be4af231-fcd3-4ed4-bcf3-505247197dfa") {
     id
@@ -746,7 +766,7 @@ public class User {
 
 正所谓”子子孙孙无穷匮也“，如果服务端不加以限制，内存迟早溢出。
 
-我们可以通过`graphql.servlet.max-query-depth`配置项设置最大查询深度。例如：
+我们可以通过 `graphql.servlet.max-query-depth` 配置项设置最大查询深度。例如：
 
 ```yml
 graphql:
@@ -754,21 +774,21 @@ graphql:
     max-query-depth: 13
 ```
 
-> 建议设置为`13`或以上。因为一些`GraphQL IDE`在进行心跳探活时的查询深度会达到`13`，比如`playground`。
+> 建议设置为 `13` 或以上。因为一些 `GraphQL IDE` 在进行心跳探活时的查询深度会达到 `13`，比如 `playground`。
 
 # 服务端最佳实践
 
 ## 子解析器
 
-实际业务中我们的数据可能来源于不同的下游微服务。以`User`为例，姓名性别等基本信息来源于用户微服务，而地址信息来源于地址微服务。这时我们就可以将地址信息的查询放在一个单独的子解析器中。
+实际业务中我们的数据可能来源于不同的下游微服务。以 `User` 为例，姓名性别等基本信息来源于用户微服务，而地址信息来源于地址微服务。这时我们就可以将地址信息的查询放在一个单独的子解析器中。
 
-创建`AddressResolver.java`类代码如下：
+创建 `AddressResolver.java` 类代码如下：
 
 ```java
-package com.sunchaser.chunyu.graphql.kickstart.resolver.user;
+package io.github.llnancy.xuejian.graphql.kickstart.resolver.user;
 
-import model.io.github.llnancy.xuejian.graphql.kickstart.Address;
-import model.io.github.llnancy.xuejian.graphql.kickstart.User;
+import io.github.llnancy.xuejian.graphql.kickstart.model.Address;
+import io.github.llnancy.xuejian.graphql.kickstart.model.User;
 import graphql.kickstart.tools.GraphQLResolver;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -795,13 +815,13 @@ public class AddressResolver implements GraphQLResolver<User> {
 }
 ```
 
-`AddressResolver`类实现了`graphql.kickstart.tools.GraphQLResolver`接口，泛型声明为`User`，方法名`address`对应着`user.graphqls`中的`address`字段名，方法入参`User`会由`kickstart`框架在运行时自动注入，方法的返回值是一个`Address`对象。
+`AddressResolver` 类实现了 `graphql.kickstart.tools.GraphQLResolver` 接口，泛型声明为 `User`，方法名 `address` 对应着 `user.graphqls` 中的 `address` 字段名，方法入参 `User` 会由 `kickstart` 框架在运行时自动注入，方法的返回值是一个 `Address` 对象。
 
-于是，我们就可以将`UserQueryResolver`中查询`address`的部分移动到`AddressResolver`。`AddressResolver`称为一个子解析器。
+于是，我们就可以将 `UserQueryResolver` 中查询 `address` 的部分移动到 `AddressResolver`。`AddressResolver` 称为一个子解析器。
 
 客户端查询示例如下：
 
-```
+```graphql
 {
   user(id: "be4af231-fcd3-4ed4-bcf3-505247197dfa") {
     id
@@ -816,7 +836,7 @@ public class AddressResolver implements GraphQLResolver<User> {
 
 ## 全局异常处理
 
-当`GraphQL`查询解析器抛出异常时，`kickstart`框架默认的全局异常处理器`DefaultGraphQLErrorHandler`会返回固定的异常信息`Internal Server Error(s) while executing query`。但实际业务开发中我们更希望能返回自定义的异常信息，所以需要自定义一个全局异常处理器。`kickstart`框架支持`Spring MVC`形式的全局异常处理。
+当 `GraphQL` 查询解析器抛出异常时，`kickstart` 框架默认的全局异常处理器 `DefaultGraphQLErrorHandler` 会返回固定的异常信息 `Internal Server Error(s) while executing query`。但实际业务开发中我们更希望能返回自定义的异常信息，所以需要自定义一个全局异常处理器。`kickstart` 框架支持 `Spring MVC` 形式的全局异常处理。
 
 开启全局异常处理：
 
@@ -826,10 +846,10 @@ graphql:
     exception-handlers-enabled: true
 ```
 
-创建全局异常处理器`GraphQLExceptionHandler`，代码如下：
+创建全局异常处理器 `GraphQLExceptionHandler`，代码如下：
 
 ```java
-package com.sunchaser.sparrow.javaee.graphql.exceptions;
+package io.github.llnancy.xuejian.graphql.kickstart.exceptions;
 
 import graphql.GraphQLException;
 import graphql.kickstart.spring.error.ThrowableGraphQLError;
@@ -860,17 +880,17 @@ public class GraphQLExceptionHandler {
 }
 ```
 
-使用`Spring MVC`中的`@ExceptionHandler`注解来处理异常，将异常包装为`ThrowableGraphQLError`对象，对于`GraphQLException`和`ConstraintViolationException`异常来说我们返回原异常中携带的错误信息，除此之外的其它`RuntimeException`异常我们用固定字符串`Internal Server Error`来防止异常信息外泄。
+使用 `Spring MVC` 中的 `@ExceptionHandler` 注解来处理异常，将异常包装为 `ThrowableGraphQLError` 对象，对于 `GraphQLException` 和 `ConstraintViolationException` 异常来说我们返回原异常中携带的错误信息，除此之外的其它 `RuntimeException` 异常我们用固定字符串 `Internal Server Error` 来防止异常信息外泄。
 
-## `DataFetcherResult`包装返回结果
+## DataFetcherResult 包装返回结果
 
-`DataFetcherResult`包含解析器正常返回的数据`data`和错误列表`errors`。使用示例如下：
+`DataFetcherResult` 包含解析器正常返回的数据 `data` 和错误列表 `errors`。使用示例如下：
 
 ```java
-package com.sunchaser.chunyu.graphql.kickstart.resolver.user;
+package io.github.llnancy.xuejian.graphql.kickstart.resolver.user;
 
-import model.io.github.llnancy.xuejian.graphql.kickstart.Address;
-import model.io.github.llnancy.xuejian.graphql.kickstart.User;
+import io.github.llnancy.xuejian.graphql.kickstart.model.Address;
+import io.github.llnancy.xuejian.graphql.kickstart.model.User;
 import graphql.execution.DataFetcherResult;
 import graphql.kickstart.execution.error.GenericGraphQLError;
 import graphql.kickstart.tools.GraphQLResolver;
@@ -908,13 +928,13 @@ public class AddressResolver implements GraphQLResolver<User> {
 
 ## 异步
 
-默认情况下，每个解析器都是同步执行的。为了提高效率，我们可以进行异步处理，让解析器返回一个`CompletableFuture`对象。代码示例如下：
+默认情况下，每个解析器都是同步执行的。为了提高效率，我们可以进行异步处理，让解析器返回一个 `CompletableFuture` 对象。代码示例如下：
 
 ```java
-package com.sunchaser.chunyu.graphql.kickstart.resolver.user;
+package io.github.llnancy.xuejian.graphql.kickstart.resolver.user;
 
-import model.io.github.llnancy.xuejian.graphql.kickstart.Address;
-import model.io.github.llnancy.xuejian.graphql.kickstart.User;
+import io.github.llnancy.xuejian.graphql.kickstart.model.Address;
+import io.github.llnancy.xuejian.graphql.kickstart.model.User;
 import graphql.execution.DataFetcherResult;
 import graphql.kickstart.execution.error.GenericGraphQLError;
 import graphql.kickstart.tools.GraphQLResolver;
@@ -957,15 +977,15 @@ public class AddressResolver implements GraphQLResolver<User> {
 }
 ```
 
-## `Mutation`
+## Mutation
 
-除了查询，`GraphQL`还支持更新服务端的数据，包括新增、修改和删除，这统一称为突变`Mutation`。
+除了查询，`GraphQL` 还支持更新服务端的数据，包括新增、修改和删除，这统一称为突变 `Mutation`。
 
-在`resources`目录下创建`graphql/mutation.graphqls`文件，之后所有的`Mutation`都将写在该文件中。下面以创建`User`为例创建一个`Mutation`。
+在 `resources` 目录下创建 `graphql/mutation.graphqls` 文件，之后所有的 `Mutation` 都将写在该文件中。下面以创建 `User` 为例创建一个 `Mutation`。
 
-### 编写`Schema`
+### 编写 Schema
 
-`graphql/mutation.graphqls`代码如下：
+`graphql/mutation.graphqls` 代码如下：
 
 ```graphql
 # All mutations available in graphql
@@ -975,9 +995,9 @@ type Mutation {
 }
 ```
 
-接收一个非空输入参数`CreateUserInput`，返回一个非空`User`对象。
+接收一个非空输入参数 `CreateUserInput`，返回一个非空 `User` 对象。
 
-创建`graphql/user/input/createUserInput.graphqls`文件，编写代码如下：
+创建 `graphql/user/input/createUserInput.graphqls` 文件，编写代码如下：
 
 ```graphql
 input CreateUserInput {
@@ -995,17 +1015,17 @@ input AddressInput {
 }
 ```
 
-由于`CreateUserInput`的类型是`input`，它包含的字段不能是`type`类型，所以`address.graphqls`无法被复用，这里声明了一个`input AddressInput`，字段完全一致。
+由于 `CreateUserInput` 的类型是 `input`，它包含的字段不能是 `type` 类型，所以 `address.graphqls` 无法被复用，这里声明了一个 `input AddressInput`，字段完全一致。
 
-### 编写`Java Bean`
+### 编写 Java Bean
 
-创建`CreateUserInput`类，代码如下：
+创建 `CreateUserInput` 类，代码如下：
 
 ```java
-package com.sunchaser.chunyu.graphql.kickstart.model.input;
+package io.github.llnancy.xuejian.graphql.kickstart.model.input;
 
-import model.io.github.llnancy.xuejian.graphql.kickstart.Address;
-import model.io.github.llnancy.xuejian.graphql.kickstart.SexEnum;
+import io.github.llnancy.xuejian.graphql.kickstart.model.Address;
+import io.github.llnancy.xuejian.graphql.kickstart.model.SexEnum;
 import lombok.Data;
 
 /**
@@ -1014,26 +1034,30 @@ import lombok.Data;
  */
 @Data
 public class CreateUserInput {
+
     private String name;
+    
     private SexEnum sex;
+    
     private Integer age;
+    
     private Address address;
 }
 ```
 
-这里的`Address.java`类可以进行复用，注意需要让其具有无参构造函数。
+这里的 `Address.java` 类可以进行复用，注意需要让其具有无参构造函数。
 
-### 编写`Mutation`解析器
+### 编写 Mutation 解析器
 
-`Mutation`对应的解析器是`GraphQLMutationResolver`。
+`Mutation` 对应的解析器是 `GraphQLMutationResolver`。
 
-创建`UserMutation`类，实现`GraphQLMutationResolver`接口，代码示例如下：
+创建 `UserMutation` 类，实现 `GraphQLMutationResolver` 接口，代码示例如下：
 
 ```java
-package com.sunchaser.chunyu.graphql.kickstart.resolver.user.mutation;
+package io.github.llnancy.xuejian.graphql.kickstart.resolver.user.mutation;
 
-import model.io.github.llnancy.xuejian.graphql.kickstart.User;
-import input.model.io.github.llnancy.xuejian.graphql.kickstart.CreateUserInput;
+import io.github.llnancy.xuejian.graphql.kickstart.model.User;
+import io.github.llnancy.xuejian.graphql.kickstart.model.input.CreateUserInput;
 import graphql.kickstart.tools.GraphQLMutationResolver;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -1065,11 +1089,11 @@ public class UserMutation implements GraphQLMutationResolver {
 }
 ```
 
-方法名`createUser`匹配`mutation.graphqls`中的`createUser`，入参为`CreateUserInput`，这里也可以和`Spring MVC`一样使用`JSR303`注解校验。
+方法名 `createUser` 匹配 `mutation.graphqls` 中的 `createUser`，入参为 `CreateUserInput`，这里也可以和 `Spring MVC` 一样使用 `JSR303` 注解校验。
 
 ### 客户端调用
 
-客户端中可以指定`Schema`的类型并取名以便同时存在多个`Schema`。以`Playground`为例，使用示例如下：
+客户端中可以指定 `Schema` 的类型并取名以便同时存在多个 `Schema`。以 `Playground` 为例，使用示例如下：
 
 ![image-20220511211036181](https://posts-cdn.lilu.org.cn/2022/05/112112df2897bddc2a6e04db957e115f6edc95ea.png)
 
@@ -1102,17 +1126,17 @@ mutation CREATE_USER {
 
 ## 文件上传
 
-在`graphql/mutation.graphqls`中添加文件上传`Schema`如下：
+在 `graphql/mutation.graphqls` 中添加文件上传 `Schema` 如下：
 
 ```graphql
 # Upload a file
 uploadFile: ID!
 ```
 
-创建文件上传解析器`UploadFileMutation`类，代码如下：
+创建文件上传解析器 `UploadFileMutation` 类，代码如下：
 
 ```java
-package com.sunchaser.chunyu.graphql.kickstart.resolver.user.mutation;
+package io.github.llnancy.xuejian.graphql.kickstart.resolver.user.mutation;
 
 import graphql.kickstart.servlet.context.DefaultGraphQLServletContext;
 import graphql.kickstart.tools.GraphQLMutationResolver;
@@ -1154,13 +1178,13 @@ public class UploadFileMutation implements GraphQLMutationResolver {
 }
 ```
 
-用`Postman`调用示例如下：
+用 `Postman` 调用示例如下：
 
 ![image-20220512145749326](https://posts-cdn.lilu.org.cn/2022/05/12144277c27e4e9caca64b5f563ab9a262d6ce53.png)
 
 ## `DataFetchingEnvironment`
 
-`Environment`环境，能获取很多与`GraphQL`请求相关的信息，可将其指定为`Resolver`解析器方法的最后一个参数，`kickstart`框架会自动注入。使用示例如下：
+`Environment` 环境，能获取很多与 `GraphQL` 请求相关的信息，可将其指定为 `Resolver` 解析器方法的最后一个参数，`kickstart` 框架会自动注入。使用示例如下：
 
 ```java
 public User createUser(@Valid CreateUserInput input, DataFetchingEnvironment environment) {
@@ -1201,19 +1225,19 @@ public User createUser(@Valid CreateUserInput input, DataFetchingEnvironment env
 }
 ```
 
-## `Scalar`
+## Scalar
 
-在`GraphQL`的类型系统中，查询的叶子节点称为`Scalar`标量。
+在 `GraphQL` 的类型系统中，查询的叶子节点称为 `Scalar` 标量。
 
-`GraphQL`规范中只定义了五种标量类型：
+`GraphQL` 规范中只定义了五种标量类型：
 
 - `String`：字符串。
 - `Boolean`：布尔值。
-- `Int`：带符号的`32`位整数。
+- `Int`：带符号的 `32` 位整数。
 - `Float`：带符号的双精度浮点数。
-- `ID`：唯一`ID`，序列化方式与字符串相同。
+- `ID`：唯一 `ID`，序列化方式与字符串相同。
 
-`graphql-java`类库在规范的基础上扩展了以下六种`Scalar`标量类型：
+`graphql-java` 类库在规范的基础上扩展了以下六种 `Scalar` 标量类型：
 
 - `Long`：`java.lang.Long`
 - `Short`：`java.lang.Short`
@@ -1222,9 +1246,9 @@ public User createUser(@Valid CreateUserInput input, DataFetchingEnvironment env
 - `BigInteger`：`java.math.BigInteger`
 - `Char`：`java.lang.Character`
 
-可在`graphql.Scalars`类中查看所有系统标量类型的实例。
+可在 `graphql.Scalars` 类中查看所有系统标量类型的实例。
 
-### 扩展`Scalar`类型
+### 扩展 Scalar 类型
 
 引入依赖：
 
@@ -1242,10 +1266,10 @@ public User createUser(@Valid CreateUserInput input, DataFetchingEnvironment env
 </dependency>
 ```
 
-向`Spring`中注入需要使用的扩展`Scalar`类型：
+向 `Spring` 中注入需要使用的扩展 `Scalar` 类型：
 
 ```java
-package com.sunchaser.chunyu.graphql.kickstart.config;
+package io.github.llnancy.xuejian.graphql.kickstart.config;
 
 import graphql.scalars.ExtendedScalars;
 import graphql.schema.GraphQLScalarType;
@@ -1278,7 +1302,7 @@ public class ScalarConfig {
 }
 ```
 
-可在`graphql.scalars.ExtendedScalars`类中查看该库的所有扩展`Scalar`类型。
+可在 `graphql.scalars.ExtendedScalars` 类中查看该库的所有扩展 `Scalar` 类型。
 
 使用示例：
 
@@ -1315,7 +1339,7 @@ type User {
 `User.java`
 
 ```java
-package com.sunchaser.chunyu.graphql.kickstart.model;
+package io.github.llnancy.xuejian.graphql.kickstart.model;
 
 import io.github.llnancy.xuejian.graphql.kickstart.model.Address;
 import io.github.llnancy.xuejian.graphql.kickstart.model.SexEnum;
@@ -1335,32 +1359,44 @@ import java.util.UUID;
 @Value
 @Builder
 public class User {
+
     UUID id;
+    
     String name;
+    
     SexEnum sex;
+    
     Integer age;
+    
     Address address;
+    
     User son;
+    
     LocalDate createdOn;
+    
     ZonedDateTime createdAt;
 }
 ```
 
-`Date`对应的`Java`类型是`LocalDate`，`DateTime`对应的`Java`类型是`ZonedDateTime`。
+`Date` 对应的 `Java` 类型是 `LocalDate`，`DateTime` 对应的 `Java` 类型是 `ZonedDateTime`。
 
-> `graphql-java-extended-scalars`包里面的扩展`Scalar`无`Java8`的`LocalDateTime`。
+> `graphql-java-extended-scalars` 包里面的扩展 `Scalar` 无 `Java8` 的 `LocalDateTime`。
 
-### 自定义`Scalar`类型
+### 自定义 Scalar 类型
 
-以`Java8`的`LocalDateTime`为例。
+以 `Java8` 的 `LocalDateTime` 为例。
 
-自定义`Scalar`示例代码如下：
+自定义 `Scalar` 示例代码如下：
 
 ```java
-package com.sunchaser.chunyu.graphql.kickstart.scalars.datetime;
+package io.github.llnancy.xuejian.graphql.kickstart.scalars.datetime;
 
 import graphql.language.StringValue;
-import graphql.schema.*;
+import graphql.schema.Coercing;
+import graphql.schema.CoercingParseLiteralException;
+import graphql.schema.CoercingParseValueException;
+import graphql.schema.CoercingSerializeException;
+import graphql.schema.GraphQLScalarType;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -1457,13 +1493,13 @@ public class LocalDateTimeScalar {
 }
 ```
 
-`Scalar`中真正起作用的是`graphql.schema.Coercing`接口的实现，它包含以下三个方法：
+`Scalar` 中真正起作用的是 `graphql.schema.Coercing` 接口的实现，它包含以下三个方法：
 
-- `parseValue`：将输入变量转化为`Java`对象。
-- `parseLiteral`：将输入的`AST`文字（`graphql.language.Value`）转化为`Java`对象。
-- `serialize`：将一个`Java`对象转化为该`Scalar`类型需要输出的形式。
+- `parseValue`：将输入变量转化为 `Java` 对象。
+- `parseLiteral`：将输入的 `AST` 文字（`graphql.language.Value`）转化为 `Java` 对象。
+- `serialize`：将一个 `Java` 对象转化为该 `Scalar` 类型需要输出的形式。
 
-看下面这个`mutation`：
+看下面这个 `mutation`：
 
 ```graphql
 mutation CREATE_USER($name: String!, $createdOn: LocalDateTime) {
@@ -1488,18 +1524,18 @@ mutation CREATE_USER($name: String!, $createdOn: LocalDateTime) {
 
 三个方法的调用时机分别为：
 
-- `parseValue`：当将`$createdOn`转化为`LocalDateTime`对象时调用。
-- `parseLiteral`：当将`"2022-05-18 20:44:37"`转化为`LocalDateTime`对象时被调用。
-- `serialize`：当`createdOn`字段被查询输出时调用。
+- `parseValue`：当将 `$createdOn` 转化为 `LocalDateTime` 对象时调用。
+- `parseLiteral`：当将 `"2022-05-18 20:44:37"` 转化为 `LocalDateTime` 对象时被调用。
+- `serialize`：当 `createdOn` 字段被查询输出时调用。
 
-## `Listener`监听器
+## Listener 监听器
 
-和`Servlet`类似，`GraphQL`请求也支持监听器机制，只需实现`GraphQLServletListener`接口。
+和 `Servlet` 类似，`GraphQL` 请求也支持监听器机制，只需实现 `GraphQLServletListener` 接口。
 
 以记录请求耗时为例，代码示例如下：
 
 ```java
-package com.sunchaser.chunyu.graphql.kickstart.listener;
+package io.github.llnancy.xuejian.graphql.kickstart.listener;
 
 import graphql.kickstart.servlet.core.GraphQLServletListener;
 import lombok.extern.slf4j.Slf4j;
@@ -1545,16 +1581,16 @@ public class LoggingListener implements GraphQLServletListener {
 }
 ```
 
-## `GraphQLContext`上下文
+## GraphQLContext 上下文
 
-前面我们用`DataFetchingEnvironment#getContext`方法获取过`GraphQL`请求的默认上下文`DefaultGraphQLServletContext`，它能在所有解析器中使用，并且支持自定义。
+前面我们用 `DataFetchingEnvironment#getContext` 方法获取过 `GraphQL` 请求的默认上下文 `DefaultGraphQLServletContext`，它能在所有解析器中使用，并且支持自定义。
 
-以获取`HTTP Header`中的`user_id`字段为例，使用静态代理设计模式自定义上下文。代码示例如下：
+以获取 `HTTP Header` 中的 `user_id` 字段为例，使用静态代理设计模式自定义上下文。代码示例如下：
 
-`CustomGraphQLContext.java`自定义上下文：
+`CustomGraphQLContext.java` 自定义上下文：
 
 ```java
-package com.sunchaser.chunyu.graphql.kickstart.context;
+package io.github.llnancy.xuejian.graphql.kickstart.context;
 
 import graphql.kickstart.servlet.context.GraphQLServletContext;
 import lombok.AllArgsConstructor;
@@ -1571,7 +1607,7 @@ import java.util.Map;
 import java.util.Optional;
 
 /**
- * 自定义GraphQL Servlet上下文
+ * 自定义 GraphQL Servlet 上下文
  *
  * @author sunchaser admin@lilu.org.cn
  * @since JDK8 2022/5/18
@@ -1581,6 +1617,7 @@ import java.util.Optional;
 public class CustomGraphQLContext implements GraphQLServletContext {
 
     private final String userId;
+
     private final GraphQLServletContext context;
 
     @Override
@@ -1615,10 +1652,10 @@ public class CustomGraphQLContext implements GraphQLServletContext {
 }
 ```
 
-`CustomGraphQLContextBuilder.java`上下文构建器：
+`CustomGraphQLContextBuilder.java` 上下文构建器：
 
 ```java
-package com.sunchaser.chunyu.graphql.kickstart.context;
+package io.github.llnancy.xuejian.graphql.kickstart.context;
 
 import graphql.kickstart.execution.context.GraphQLContext;
 import graphql.kickstart.servlet.context.DefaultGraphQLServletContext;
@@ -1662,14 +1699,14 @@ public class CustomGraphQLContextBuilder implements GraphQLServletContextBuilder
 }
 ```
 
-## `Instrumentation`
+## Instrumentation
 
-`graphql.execution.instrumentation.Instrumentation`接口提供了很多`beginXXX`的方法，这允许我们在`GraphQL`请求的各个阶段进行扩展，例如做性能监控和链路追踪等。每个`beginXXX`方法被调用时必须返回一个非`null`的`InstrumentationContext`对象，该对象包含两个回调，一个`onDispatched`在被分派时回调，另一个`onCompleted`在完成时回调。
+`graphql.execution.instrumentation.Instrumentation` 接口提供了很多 `beginXXX` 的方法，这允许我们在 `GraphQL` 请求的各个阶段进行扩展，例如做性能监控和链路追踪等。每个 `beginXXX` 方法被调用时必须返回一个非 `null` 的 `InstrumentationContext` 对象，该对象包含两个回调，一个 `onDispatched` 在被分派时回调，另一个 `onCompleted` 在完成时回调。
 
 以记录请求信息为例，代码示例如下：
 
 ```java
-package com.sunchaser.chunyu.graphql.kickstart.instrumentation;
+package io.github.llnancy.xuejian.graphql.kickstart.instrumentation;
 
 import graphql.ExecutionResult;
 import graphql.execution.ExecutionId;
@@ -1684,7 +1721,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 
 /**
- * 请求日志记录Instrumentation
+ * 请求日志记录 Instrumentation
  *
  * @author sunchaser admin@lilu.org.cn
  * @since JDK8 2022/5/19
@@ -1710,9 +1747,9 @@ public class RequestLoggingInstrumentation extends SimpleInstrumentation {
 }
 ```
 
-## `Tracing`链路追踪
+## Tracing 链路追踪
 
-`graphql.execution.instrumentation.tracing.TracingInstrumentation`类提供了链路追踪的能力，在`Spring Boot`中开启链路追踪仅需添加以下配置项：
+`graphql.execution.instrumentation.tracing.TracingInstrumentation` 类提供了链路追踪的能力，在 `Spring Boot` 中开启链路追踪仅需添加以下配置项：
 
 ```yml
 graphql:
@@ -1720,13 +1757,13 @@ graphql:
     tracing-enabled: true
 ```
 
-以`playground`为例，发送请求后可点击右下角`TRACING`查看链路信息：
+以 `playground` 为例，发送请求后可点击右下角 `TRACING` 查看链路信息：
 
 ![image-20220519144008840](https://posts-cdn.lilu.org.cn/2022/05/19147cef359a0db7d78112ae5f9402efe02aaff3.png)
 
-## `Subscription`发布订阅
+## Subscription 发布订阅
 
-`GraphQL`也提供了类似`WebSocket`协议的服务端主动推送能力，基于响应式流。
+`GraphQL` 也提供了类似 `WebSocket` 协议的服务端主动推送能力，基于响应式流。
 
 引入依赖：
 
@@ -1739,7 +1776,7 @@ graphql:
 </dependency>
 ```
 
-创建订阅`graphql/subscription.graphqls`文件：
+创建订阅 `graphql/subscription.graphqls` 文件：
 
 ```graphql
 type Subscription {
@@ -1748,15 +1785,15 @@ type Subscription {
 }
 ```
 
-定义了两个订阅：`users`订阅所有用户，`user`订阅指定`name`的用户。
+定义了两个订阅：`users` 订阅所有用户，`user` 订阅指定 `name` 的用户。
 
-创建订阅解析器`UserSubscription.java`，编写代码如下：
+创建订阅解析器 `UserSubscription.java`，编写代码如下：
 
 ```java
-package com.sunchaser.chunyu.graphql.kickstart.resolver.user.subscription;
+package io.github.llnancy.xuejian.graphql.kickstart.resolver.user.subscription;
 
-import model.io.github.llnancy.xuejian.graphql.kickstart.User;
-import publisher.io.github.llnancy.xuejian.graphql.kickstart.UserPublisher;
+import io.github.llnancy.xuejian.graphql.kickstart.model.User;
+import io.github.llnancy.xuejian.graphql.kickstart.publisher.UserPublisher;
 import graphql.kickstart.servlet.context.DefaultGraphQLWebSocketContext;
 import graphql.kickstart.tools.GraphQLSubscriptionResolver;
 import graphql.schema.DataFetchingEnvironment;
@@ -1789,12 +1826,12 @@ public class UserSubscription implements GraphQLSubscriptionResolver {
 }
 ```
 
-其中`UserPublisher.java`是基于`reactor`响应式流的推送，代码示例如下：
+其中 `UserPublisher.java` 是基于 `reactor` 响应式流的推送，代码示例如下：
 
 ```java
-package com.sunchaser.chunyu.graphql.kickstart.publisher;
+package io.github.llnancy.xuejian.graphql.kickstart.publisher;
 
-import model.io.github.llnancy.xuejian.graphql.kickstart.User;
+import io.github.llnancy.xuejian.graphql.kickstart.model.User;
 import lombok.extern.slf4j.Slf4j;
 import org.reactivestreams.Publisher;
 import org.springframework.stereotype.Component;
@@ -1802,7 +1839,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Sinks;
 
 /**
- * user发布者
+ * user 发布者
  *
  * @author sunchaser admin@lilu.org.cn
  * @since JDK8 2022/5/19
@@ -1812,6 +1849,7 @@ import reactor.core.publisher.Sinks;
 public class UserPublisher {
 
     private final Sinks.Many<User> sink;
+
     private final Flux<User> flux;
 
     public UserPublisher() {
@@ -1840,7 +1878,7 @@ public class UserPublisher {
 }
 ```
 
-接下来在`createUser`创建用户的时候要通过`UserPublisher#publish`进行事件的发布，修改`UserMutation#createUser`方法：
+接下来在 `createUser` 创建用户的时候要通过 `UserPublisher#publish` 进行事件的发布，修改 `UserMutation#createUser` 方法：
 
 ```java
 public class UserMutation implements GraphQLMutationResolver {
@@ -1868,7 +1906,7 @@ public class UserMutation implements GraphQLMutationResolver {
 }
 ```
 
-另外，为了在订阅中通过`DataFetchingEnvironment`获取上下文，我们需要在自定义的上下文构建器中构建基于`WebSocket`的上下文，代码示例如下：
+另外，为了在订阅中通过 `DataFetchingEnvironment` 获取上下文，我们需要在自定义的上下文构建器中构建基于 `WebSocket` 的上下文，代码示例如下：
 
 ```java
 public class CustomGraphQLContextBuilder implements GraphQLServletContextBuilder {
@@ -1889,20 +1927,22 @@ public class CustomGraphQLContextBuilder implements GraphQLServletContextBuilder
 
 # 其它
 
-## `IDEA`插件
+## IDEA 插件
 
 ![image-20220519185300116](https://posts-cdn.lilu.org.cn/2022/05/1918c79dc5a3c3d712f969a865506a71cff9d6e4.png)
 
-作用：在`IDEA`中写`graphqls`文件会有提示，同时文件前面会有`icon`图标等。
+作用：在 `IDEA` 中写 `graphqls` 文件会有提示，同时文件前面会有 `icon` 图标等。
 
-## [`voyager`](https://github.com/APIs-guru/graphql-voyager)
+## voyager
 
-可以查看`graphql schema`之间的关系图。
+项目地址：[https://github.com/APIs-guru/graphql-voyager](https://github.com/APIs-guru/graphql-voyager)
+
+可以查看 `graphql schema` 之间的关系图。
 
 引入依赖：
 
 ```xml
-<!--可以查看graphql之间的关系图-->
+<!--可以查看 graphql 之间的关系图-->
 <dependency>
     <groupId>com.graphql-java-kickstart</groupId>
     <artifactId>voyager-spring-boot-starter</artifactId>
@@ -1911,7 +1951,7 @@ public class CustomGraphQLContextBuilder implements GraphQLServletContextBuilder
 </dependency>
 ```
 
-默认访问路径为：[`http://localhost:8080/voyager`](http://localhost:8080/voyager)，界面示例如下：
+默认访问路径为：[http://localhost:8080/voyager](http://localhost:8080/voyager)，界面示例如下：
 
 ![image-20220519190359955](https://posts-cdn.lilu.org.cn/2022/05/19193dba605053f3edff0a5e5021eb1343ce1e25.png)
 
