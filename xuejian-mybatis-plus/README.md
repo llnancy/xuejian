@@ -1,23 +1,23 @@
-- [`Spring Boot` 整合 `MyBatis-Plus` 快速实现单表 `CRUD`](#spring-boot-整合-mybatis-plus-快速实现单表-crud)
-  - [数据表准备](#数据表准备)
-  - [创建工程](#创建工程)
-  - [代码生成](#代码生成)
-  - [生成代码介绍](#生成代码介绍)
-    - [`entity`](#entity)
-    - [`mapper`](#mapper)
-    - [`service & impl`](#service--impl)
-    - [`controller`](#controller)
-  - [基础配置](#基础配置)
-  - [使用 `BaseMapper`](#使用-basemapper)
-  - [使用 `IService`](#使用-iservice)
-  - [条件构造器 `Wrapper`](#条件构造器-wrapper)
-  - [插件](#插件)
-    - [分页插件](#分页插件)
-      - [配置类](#配置类)
+- [Spring Boot 整合 MyBatis-Plus 快速实现单表 CRUD](#spring-boot-整合-mybatis-plus-快速实现单表-crud)
+- [数据表准备](#数据表准备)
+- [创建工程](#创建工程)
+- [代码生成](#代码生成)
+- [生成代码介绍](#生成代码介绍)
+  - [entity](#entity)
+  - [mapper](#mapper)
+  - [service \& impl](#service--impl)
+  - [controller](#controller)
+- [基础配置](#基础配置)
+- [使用 BaseMapper](#使用-basemapper)
+- [使用 IService](#使用-iservice)
+- [条件构造器 Wrapper](#条件构造器-wrapper)
+- [插件](#插件)
+  - [分页插件](#分页插件)
+    - [配置类](#配置类)
     - [使用分页](#使用分页)
-  - [其它](#其它)
+- [其它](#其它)
 
-# `Spring Boot` 整合 `MyBatis-Plus` 快速实现单表 `CRUD`
+# Spring Boot 整合 MyBatis-Plus 快速实现单表 CRUD
 
 [`MyBatis-Plus`](https://baomidou.com/)（简称 `MP`）是一个 `MyBatis` 的增强工具，在 `MyBatis`
 的基础上只做增强不做改变，为简化开发、提高效率而生。本文主要介绍在 `Spring Boot` 中整合 `Mybatis-Plus` 快速实现 `MySQL`
@@ -34,13 +34,13 @@
 </dependency>
 ```
 
-## 数据表准备
+# 数据表准备
 
 在创建工程之前，我们先准备一张用来 `crud` 的数据表。数据库我们选用 `MySQL`，下面是初始化脚本：
 
 ```sql
-CREATE DATABASE `chunyu_mp` default character set utf8mb4 COLLATE utf8mb4_general_ci;
-use `chunyu_mp`;
+CREATE DATABASE `xuejian_mp` default character set utf8mb4 COLLATE utf8mb4_general_ci;
+use `xuejian_mp`;
 
 DROP TABLE IF EXISTS `mp_user`;
 CREATE TABLE `mp_user`
@@ -57,9 +57,9 @@ CREATE TABLE `mp_user`
   DEFAULT CHARSET = utf8mb4 COMMENT ='Mybatis-Plus 用户表';
 ```
 
-## 创建工程
+# 创建工程
 
-创建 `Spring Boot` 项目 `chunyu-mybatis-plus`，引入相关依赖，完整 `pom.xml` 文件如下：
+创建 `Spring Boot` 项目 `xuejian-mybatis-plus`，引入相关依赖，完整 `pom.xml` 文件如下：
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -67,26 +67,14 @@ CREATE TABLE `mp_user`
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>sunchaser-chunyu</artifactId>
-        <groupId>com.sunchaser.chunyu</groupId>
+        <groupId>io.github.llnancy</groupId>
+        <artifactId>xuejian-parent</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>chunyu-mybatis-plus</artifactId>
-
-    <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <!-- Spring Boot 版本-->
-        <springboot.version>2.6.4</springboot.version>
-        <!-- MyBatis-Plus 版本-->
-        <mybatisplus.version>3.5.2</mybatisplus.version>
-        <!-- 代码生成器版本 -->
-        <mybatisplus.generate.version>3.5.2</mybatisplus.generate.version>
-    </properties>
+    <artifactId>xuejian-mybatis-plus</artifactId>
+    <description>Spring Boot 整合 Mybatis-Plus 框架</description>
 
     <dependencyManagement>
         <dependencies>
@@ -110,13 +98,13 @@ CREATE TABLE `mp_user`
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
-            <version>${mybatisplus.version}</version>
+            <version>3.5.2</version>
         </dependency>
         <!-- mybatis plus generate 代码生成器 -->
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-generator</artifactId>
-            <version>${mybatisplus.generate.version}</version>
+            <version>3.5.2</version>
         </dependency>
         <!-- 数据库驱动 -->
         <dependency>
@@ -143,12 +131,12 @@ CREATE TABLE `mp_user`
 
 > 版本：`MP` 选用当前最新版本 `3.5.2`，代码生成器选择 `3.5.2`。
 
-## 代码生成
+# 代码生成
 
 创建 `MybatisPlusGenerator.java` 类，编写代码生成的 `main` 方法如下：
 
 ```java
-package com.sunchaser.chunyu.mybatisplus.generate;
+package io.github.llnancy.xuejian.mybatisplus.generate;
 
 import com.baomidou.mybatisplus.generator.FastAutoGenerator;
 import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
@@ -176,7 +164,7 @@ public class MybatisPlusGenerator {
 
     public static void main(String[] args) {
         FastAutoGenerator.create(new DataSourceConfig
-                        .Builder("jdbc:mysql://localhost:3306/chunyu_mp?useUnicode=true&characterEncoding=UTF-8&useSSL=false", "root", "123456")
+                        .Builder("jdbc:mysql://localhost:3306/xuejian_mp?useUnicode=true&characterEncoding=UTF-8&useSSL=false", "root", "123456")
                         // 自定义类型转换器：tinyint 生成 Integer 替换默认的 Boolean
                         .typeConvert(new MySqlTypeConvert() {
                             @Override
@@ -196,15 +184,15 @@ public class MybatisPlusGenerator {
                             .fileOverride() // 覆盖已生成文件（即将过时）3.5.2 版本不会进行覆盖
                             .commentDate(() -> "JDK8 " + LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"))) // 设置类文件头部注释的时间
                             .dateType(DateType.TIME_PACK) // 使用 Java8 的新时间类型 LocalDateTime
-                            .outputDir("./chunyu-mybatis-plus/src/main/java"); // 指定输出目录（相对 or 绝对路径均可）
+                            .outputDir("./xuejian-mybatis-plus/src/main/java"); // 指定输出目录（相对 or 绝对路径均可）
                 })
                 .packageConfig(builder -> {
-                    builder.parent("com.sunchaser.chunyu") // 设置父包名
+                    builder.parent("io.github.llnancy.xuejian") // 设置父包名
                             .moduleName("mybatisplus") // 设置父包模块名
                             .entity("repository.entity") // entity 包名
                             .mapper("repository.mapper") // mapper 包名
                             .controller("web.controller") // controller 包名
-                            .pathInfo(Collections.singletonMap(OutputFile.xml, "./chunyu-mybatis-plus/src/main/resources/mapper")); // 指定 xml 文件生成的路径
+                            .pathInfo(Collections.singletonMap(OutputFile.xml, "./xuejian-mybatis-plus/src/main/resources/mapper")); // 指定 xml 文件生成的路径
                 })
                 .strategyConfig(builder -> {
                     builder.addTablePrefix("mp_") // 增加过滤表前缀
@@ -212,7 +200,7 @@ public class MybatisPlusGenerator {
                             .enableLombok() // 开启 lombok
                             .formatFileName("%sEntity") // 实体类以 Entity 结尾
                             .logicDeleteColumnName("is_deleted") // 逻辑删除字段
-                            // .superClass("com.sunchaser.shushan.wulingzhu.repository.entity.BaseEntity")
+                            // .superClass("io.github.llnancy.xuejian.mybatisplus.repository.entity.BaseEntity")
                             // .addSuperEntityColumns("id", "create_time", "update_time", "is_deleted")// 设置实体公共父类字段
                             .controllerBuilder() // Controller 策略配置
                             .enableHyphenStyle() // 驼峰转连字符 -
@@ -247,9 +235,9 @@ public class MybatisPlusGenerator {
 
 运行 `main` 方法即可生成相关类文件，非常方便快捷好用，强力推荐。
 
-## 生成代码介绍
+# 生成代码介绍
 
-### `entity`
+## entity
 
 `UserEntity.java` 类，由于我们自定义了模板，所以类上是 `@Data` 注解。类中还有几个其它注解，这里进行简单说明：
 
@@ -259,14 +247,14 @@ public class MybatisPlusGenerator {
 - ``@TableField("`name`")``：标识数据库字段名，这里主要是因为 `name` 是 `MySQL` 中的关键字，所以要加反引号 `` ` ``。
 - `@TableLogic`：标识数据库表的逻辑删除字段。加上该注解后所有的查询修改删除都会自动带上该字段作为条件。
 
-### `mapper`
+## mapper
 
 `UserMapper.java` 类：
 
 ```java
-package com.sunchaser.chunyu.mybatisplus.repository.mapper;
+package io.github.llnancy.xuejian.mybatisplus.repository.mapper;
 
-import entity.repository.io.github.llnancy.xuejian.mybatisplus.UserEntity;
+import io.github.llnancy.xuejian.mybatisplus.repository.entity.UserEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -303,14 +291,14 @@ public interface UserMapper extends BaseMapper<UserEntity> {
 | `int deleteBatchIds(Collection<?> idList);`                                                 | 删除（根据 `ID` 或实体 批量删除）。                                                |
 | `int deleteByMap(Map<String, Object> columnMap);`                                           | 根据 `columnMap` 条件，删除记录。                                              |
 
-### `service & impl`
+## service & impl
 
 `UserService.java` 类：
 
 ```java
-package com.sunchaser.chunyu.mybatisplus.service;
+package io.github.llnancy.xuejian.mybatisplus.service;
 
-import entity.repository.io.github.llnancy.xuejian.mybatisplus.UserEntity;
+import io.github.llnancy.xuejian.mybatisplus.repository.entity.UserEntity;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -327,11 +315,11 @@ public interface UserService extends IService<UserEntity> {
 `UserServiceImpl.java` 类：
 
 ```java
-package com.sunchaser.chunyu.mybatisplus.service.impl;
+package io.github.llnancy.xuejian.mybatisplus.service.impl;
 
-import entity.repository.io.github.llnancy.xuejian.mybatisplus.UserEntity;
-import mapper.repository.io.github.llnancy.xuejian.mybatisplus.UserMapper;
-import service.io.github.llnancy.xuejian.mybatisplus.UserService;
+import io.github.llnancy.xuejian.mybatisplus.repository.entity.UserEntity;
+import io.github.llnancy.xuejian.mybatisplus.repository.mapper.UserMapper;
+import io.github.llnancy.xuejian.mybatisplus.service.UserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
@@ -351,12 +339,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserEntity> impleme
 能力，实现类继承 `com.baomidou.mybatisplus.extension.service.impl.ServiceImpl` 自动拥有通用 `crud` 能力实现。`service`
 层通用 `crud` 能力和 `mapper` 层的主要区别在于对一些批量操作的 `@Transactional` 事务支持和条件构造器 `Wrapper`。
 
-### `controller`
+## controller
 
 `UserController.java` 类：
 
 ```java
-package com.sunchaser.chunyu.mybatisplus.web.controller;
+package io.github.llnancy.xuejian.mybatisplus.web.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -376,12 +364,12 @@ public class UserController {
 
 提供 `web` 访问入口。
 
-## 基础配置
+# 基础配置
 
-创建 `Spring Boot` 启动类 `ChunYuMybatisPlusApplication.java`，添加 `@MapperScan` 注解扫描 `Mapper` 文件。代码如下：
+创建 `Spring Boot` 启动类 `XueJianMybatisPlusApplication.java`，添加 `@MapperScan` 注解扫描 `Mapper` 文件。代码如下：
 
 ```java
-package com.sunchaser.chunyu.mybatisplus;
+package io.github.llnancy.xuejian.mybatisplus;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.WebApplicationType;
@@ -395,10 +383,10 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
  * @since JDK8 2022/3/10
  */
 @SpringBootApplication
-@MapperScan("com.sunchaser.chunyu.mybatisplus.repository.mapper")
-public class ChunYuMybatisPlusApplication {
+@MapperScan("io.github.llnancy.xuejian.mybatisplus.repository.mapper")
+public class XueJianMybatisPlusApplication {
     public static void main(String[] args) {
-        new SpringApplicationBuilder(ChunYuMybatisPlusApplication.class)
+        new SpringApplicationBuilder(XueJianMybatisPlusApplication.class)
                 .web(WebApplicationType.SERVLET)
                 .run(args);
     }
@@ -411,7 +399,7 @@ public class ChunYuMybatisPlusApplication {
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/chunyu_mp?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    url: jdbc:mysql://localhost:3306/xuejian_mp?useUnicode=true&characterEncoding=UTF-8&useSSL=false
     username: root
     password: 123456
   mvc:
@@ -425,16 +413,16 @@ mybatis-plus:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 ```
 
-## 使用 `BaseMapper`
+# 使用 BaseMapper
 
 `BaseMapper` 在 `Spring` 环境下可直接进行依赖注入，也可通过 `com.baomidou.mybatisplus.extension.service.impl.ServiceImpl`
 通用 `service` 实现类的 `getBaseMapper()` 方法获取。下面是基于 `Restful` 接口的简单运用示例：
 
 ```java
-package com.sunchaser.chunyu.mybatisplus.web.controller;
+package io.github.llnancy.xuejian.mybatisplus.web.controller;
 
-import entity.repository.io.github.llnancy.xuejian.mybatisplus.UserEntity;
-import service.io.github.llnancy.xuejian.mybatisplus.UserService;
+import io.github.llnancy.xuejian.mybatisplus.repository.entity.UserEntity;
+import io.github.llnancy.xuejian.mybatisplus.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -532,15 +520,15 @@ public class UserController {
 
 > 有关 `BaseMapper` 的更多使用方法可查看 [官方文档](https://baomidou.com/pages/49cc81/#mapper-crud-%E6%8E%A5%E5%8F%A3)
 
-## 使用 `IService`
+# 使用 IService
 
 通用 `service` 实现的主要特性之一是事务性的批量新增修改删除操作，下面是简单使用：
 
 ```java
-package com.sunchaser.chunyu.mybatisplus.web.controller;
+package io.github.llnancy.xuejian.mybatisplus.web.controller;
 
-import entity.repository.io.github.llnancy.xuejian.mybatisplus.UserEntity;
-import service.io.github.llnancy.xuejian.mybatisplus.UserService;
+import io.github.llnancy.xuejian.mybatisplus.repository.entity.UserEntity;
+import io.github.llnancy.xuejian.mybatisplus.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -615,13 +603,13 @@ public class UserController {
 
 > 有关 `service` 的更多使用方法可查看 [官方文档](https://baomidou.com/pages/49cc81/#service-crud-%E6%8E%A5%E5%8F%A3)
 
-## 条件构造器 `Wrapper`
+# 条件构造器 Wrapper
 
 通用 `service` 实现类的另外一个特性是条件构造器，功能强大，且支持链式调用。
 
 先来看下 `Wrapper` 体系的整体类继承关系图：
 
-![`Wrapper`](https://cdn.jsdelivr.net/gh/sunchaser-lilu/sunchaser-cdn@master/images/java-ee/mybatis-plus/wrapper.png)
+![`Wrapper`](https://cdn.jsdelivr.net/gh/llnancy/sunchaser-cdn@master/images/java-ee/mybatis-plus/wrapper.png)
 
 将所有的查询条件分为四大类：
 
@@ -638,14 +626,14 @@ public class UserController {
 。下面是一些具体代码示例：
 
 ```java
-package com.sunchaser.chunyu.mybatisplus.web.controller;
+package io.github.llnancy.xuejian.mybatisplus.web.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import entity.repository.io.github.llnancy.xuejian.mybatisplus.UserEntity;
-import service.io.github.llnancy.xuejian.mybatisplus.UserService;
+import io.github.llnancy.xuejian.mybatisplus.repository.entity.UserEntity;
+import io.github.llnancy.xuejian.mybatisplus.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -741,19 +729,19 @@ public class UserController {
 
 > 有关条件构造器的更多使用方法可查看 [官方文档](https://baomidou.com/pages/10c804/#abstractwrapper)
 
-## 插件
+# 插件
 
 基于原生 `MyBatis` 提供的插件机制进行实现。
 
-### 分页插件
+## 分页插件
 
-#### 配置类
+### 配置类
 
 配置 `com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor` 插件并注入到 `Spring`
 容器中，同时可将启动类上的 `@MapperScan` 注解移至此方便统一管理。完整代码如下：
 
 ```java
-package com.sunchaser.chunyu.mybatisplus.config;
+package io.github.llnancy.xuejian.mybatisplus.config;
 
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
@@ -769,7 +757,7 @@ import org.springframework.context.annotation.Configuration;
  * @since JDK8 2022/3/13
  */
 @Configuration
-@MapperScan("com.sunchaser.chunyu.mybatisplus.repository.mapper")
+@MapperScan("io.github.llnancy.xuejian.mybatisplus.repository.mapper")
 public class MyBatisPlusConfig {
 
     @Bean
@@ -787,13 +775,13 @@ public class MyBatisPlusConfig {
 `BaseMapper` 提供的 `selectPage` 方法可直接支持分页，并支持使用条件构造器。使用示例如下：
 
 ```java
-package com.sunchaser.chunyu.mybatisplus.web.controller;
+package io.github.llnancy.xuejian.mybatisplus.web.controller;
 
 import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import entity.repository.io.github.llnancy.xuejian.mybatisplus.UserEntity;
-import service.io.github.llnancy.xuejian.mybatisplus.UserService;
+import io.github.llnancy.xuejian.mybatisplus.repository.entity.UserEntity;
+import io.github.llnancy.xuejian.mybatisplus.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -838,8 +826,8 @@ public class UserController {
 }
 ```
 
-## 其它
+# 其它
 
 - [`IDEA` 插件 `MyBatisX`](https://baomidou.com/pages/ba5b24/)
 
-完整代码可查看 [`Github`](https://github.com/sunchaser-lilu/sunchaser-chunyu/tree/master/chunyu-mybatis-plus)。
+完整代码可查看 [`Github`](https://github.com/llnancy/xuejian/tree/master/xuejian-mybatis-plus)。

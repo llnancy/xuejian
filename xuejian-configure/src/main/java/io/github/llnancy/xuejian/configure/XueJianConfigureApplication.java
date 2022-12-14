@@ -14,6 +14,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 public class XueJianConfigureApplication {
 
     public static void main(String[] args) {
+        // SpringApplication.run(XueJianConfigureApplication.class, args);
         new SpringApplicationBuilder(XueJianConfigureApplication.class)
                 .web(WebApplicationType.SERVLET)
                 .run(args); // 添加临时参数args

@@ -15,7 +15,7 @@ import java.util.Map;
 import java.util.Optional;
 
 /**
- * 自定义GraphQL Servlet上下文
+ * 自定义 GraphQL Servlet 上下文
  *
  * @author sunchaser admin@lilu.org.cn
  * @since JDK8 2022/5/18
@@ -25,6 +25,7 @@ import java.util.Optional;
 public class CustomGraphQLContext implements GraphQLServletContext {
 
     private final String userId;
+
     private final GraphQLServletContext context;
 
     @Override

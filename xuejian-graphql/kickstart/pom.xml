@@ -52,14 +52,14 @@
             <version>${graphql.starter.version}</version>
             <scope>test</scope>
         </dependency>
-        <!-- playground graphql的一个网页IDE -->
+        <!-- playground graphql 的一个网页 IDE -->
         <dependency>
             <groupId>com.graphql-java-kickstart</groupId>
             <artifactId>playground-spring-boot-starter</artifactId>
             <version>${graphql.starter.version}</version>
             <scope>runtime</scope>
         </dependency>
-        <!-- graphiql 和playground类似 -->
+        <!-- graphiql 和 playground 类似 -->
         <dependency>
             <groupId>com.graphql-java-kickstart</groupId>
             <artifactId>graphiql-spring-boot-starter</artifactId>
@@ -71,7 +71,7 @@
             <artifactId>altair-spring-boot-starter</artifactId>
             <version>${graphql.starter.version}</version>
         </dependency>
-        <!--可以查看graphql之间的关系图-->
+        <!--可以查看 graphql 之间的关系图-->
         <dependency>
             <groupId>com.graphql-java-kickstart</groupId>
             <artifactId>voyager-spring-boot-starter</artifactId>

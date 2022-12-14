@@ -1,8 +1,19 @@
-# `Spring Boot` 整合 `Apollo` 分布式配置中心
+- [Spring Boot 整合 Apollo 分布式配置中心](#spring-boot-整合-apollo-分布式配置中心)
+- [创建工程](#创建工程)
+- [基本配置](#基本配置)
+- [添加配置](#添加配置)
+- [读取配置](#读取配置)
+  - [使用 @ApolloConfig 注解](#使用-apolloconfig-注解)
+  - [使用 @ApolloJsonValue 注解](#使用-apollojsonvalue-注解)
+  - [使用 @Value 注解](#使用-value-注解)
+  - [配合 @ConfigurationProperties 注解使用](#配合-configurationproperties-注解使用)
+  - [使用 @ApolloConfigChangeListener 注解](#使用-apolloconfigchangelistener-注解)
 
-# 核心依赖
+# Spring Boot 整合 Apollo 分布式配置中心
 
-```
+核心依赖
+
+```xml
 <!-- apollo客户端 -->
 <dependency>
     <groupId>com.ctrip.framework.apollo</groupId>
@@ -82,15 +93,19 @@ app:
 
 注意还需要在 `VM Options` 中配置环境 `env` 和 `Meta Server` 的地址（`apollo.meta`）：
 
-```
+```text
 -Denv=DEV -Dapollo.meta=http://localhost:8080
 ```
 
 # 添加配置
 
+todo
+
 # 读取配置
 
-## `@ApolloConfig` 注解
+可使用 `@ApolloConfig`、`@ApolloJsonValue`、`@Value`、`@ConfigurationProperties` 及 `@ApolloConfigChangeListener` 等注解读取配置。
+
+## 使用 @ApolloConfig 注解
 
 使用 `@ApolloConfig` 注解自动注入对应 `namespace` 的 `Config` 对象，代码示例如下：
 
@@ -124,7 +139,7 @@ public class ApolloConfigController {
 
 注入了 `application.yml` 这个 `namespace` 对应的 `Config` 对象，从而可以读取 `key-value` 类型的字符串配置项。
 
-## `@ApolloJsonValue` 注解
+## 使用 @ApolloJsonValue 注解
 
 使用 `@ApolloJsonValue` 注解把配置的 `json` 字符串自动注入为 `Java Bean` 对象，代码示例如下：
 
@@ -172,9 +187,9 @@ public class ApolloConfigController {
 }
 ```
 
-> 注意：`yml` 格式下配置 `json` 字符串时需要用单引号 `''` 将整个 `json` 串括起来进行转义
+> 注意：`yml` 格式下配置 `json` 字符串时需要用单引号 `''` 将整个 `json` 串括起来进行转义。
 
-## `@Value` 注解
+## 使用 @Value 注解
 
 使用 `@Value` 注释实际上是通过 `Spring` 的 `Placeholder` 占位符的形式来注入配置项，其格式支持 `SpEL` 表达式，例如 `${key:defaultValue}`，冒号左边的 `key` 是配置项，冒号右边的 `defaultValue` 是默认值（可不提供）。代码示例如下：
 
@@ -216,11 +231,11 @@ public class ApolloConfigController {
 }
 ```
 
-### 配合 `@ConfigurationProperties` 注解使用
+## 配合 @ConfigurationProperties 注解使用
 
 首先定义一个 `config` 配置类代码如下：
 
-```
+```java
 package io.github.llnancy.xuejian.apollo.config;
 
 import lombok.Getter;
@@ -282,7 +297,7 @@ public class ApolloConfigController {
 }
 ```
 
-### `@ApolloConfigChangeListener` 注解
+## 使用 @ApolloConfigChangeListener 注解
 
 使用 `@ApolloConfigChangeListener` 注解可自动注册 `ConfigChangeListener` 监听器监听配置项变更事件，示例代码如下：
 
@@ -335,7 +350,7 @@ public class ApolloRefresherConfig implements ApplicationContextAware {
 
 对于使用 `@ConfigurationProperties` 注解注入的属性，需要发布 `org.springframework.cloud.context.environment.EnvironmentChangeEvent` 事件触发属性值的更新。所以需要在 `pom.xml` 中添加 `spring-cloud-context` 依赖：
 
-```
+```xml
 <!-- spring cloud 上下文管理   -->
 <dependency>
     <groupId>org.springframework.cloud</groupId>

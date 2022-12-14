@@ -12,5 +12,6 @@ import lombok.Data;
 public class MsgDTO /* implements Serializable */ {
 
     // private static final long serialVersionUID = -51410032238146012L;
+
     private String msg;
 }

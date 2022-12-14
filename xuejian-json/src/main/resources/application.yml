@@ -1,3 +1,8 @@
 spring:
   application:
     name: xuejian-json
+  # org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration.Jackson2ObjectMapperBuilderCustomizerConfiguration.StandardJackson2ObjectMapperBuilderCustomizer.configureDateFormat
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+  gson:
+    date-format: yyyy-MM-dd HH:mm:ss
