@@ -8,6 +8,7 @@
 
 - [第一个 Spring Boot 项目](./xuejian-hello-world/README.md)
 - [Spring Boot 配置属性](./xuejian-configure/README.md)
+- [Spring Boot JPA 实战](/xuejian-spring-data/xuejian-data-jpa/README.md)
 - [Spring Boot 整合 JSON 序列化](./xuejian-json/README.md)
 - [Spring Boot 整合 MyBatis-Plus 快速实现单表 CRUD](./xuejian-mybatis-plus/README.md)
 - [Spring Boot 整合分布式配置中心 Apollo](./xuejian-apollo/README.md)
