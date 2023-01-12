@@ -20,6 +20,7 @@
         <module>xuejian-rabbitmq</module>
         <module>xuejian-graphql</module>
         <module>xuejian-pagehelper</module>
+        <module>xuejian-webflux</module>
     </modules>
 
     <properties>
