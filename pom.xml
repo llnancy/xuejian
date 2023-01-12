@@ -21,6 +21,7 @@
         <module>xuejian-graphql</module>
         <module>xuejian-pagehelper</module>
         <module>xuejian-spring-data</module>
+        <module>xuejian-webflux</module>
     </modules>
 
     <properties>
