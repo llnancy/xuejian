@@ -14,7 +14,7 @@ import reactor.core.publisher.Mono;
 import javax.annotation.Resource;
 
 /**
- * reactive redis
+ * reactive redis controller
  *
  * @author sunchaser admin@lilu.org.cn
  * @since JDK8 2023/1/12
