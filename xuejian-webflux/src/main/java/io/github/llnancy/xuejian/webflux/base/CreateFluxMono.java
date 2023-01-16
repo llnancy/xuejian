@@ -12,7 +12,7 @@ import java.util.List;
  * @author sunchaser admin@lilu.org.cn
  * @since JDK8 2023/1/13
  */
-public class FluxMonoCreate {
+public class CreateFluxMono {
 
     public static void main(String[] args) {
         // 通过 Flux.just 静态方法枚举元素创建字符串序列
