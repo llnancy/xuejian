@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 /**
  * redis user
- * must implement the {@link Serializable} interface
+ * must implement the {@link Serializable} interface in the default configuration.
  *
  * @author sunchaser admin@lilu.org.cn
  * @since JDK8 2023/1/12
