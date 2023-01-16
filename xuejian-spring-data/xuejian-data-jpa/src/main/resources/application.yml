@@ -1,0 +1,51 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost/jpa_db?useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: 123456
+    # MySQL 数据源
+    db1:
+      url: jdbc:mysql://localhost/jpa_db?useUnicode=true&characterEncoding=utf-8&logger=Slf4JLogger&profileSQL=true
+      username: root
+      password: 123456
+    # h2 数据源
+    db2:
+      url: jdbc:h2:~/test
+      username: sa
+      password: 123456
+    hikari:
+      connection-timeout: 30000 # 连接超时时间
+      idle-timeout: 600000 # 连接空闲超时时间
+      pool-name: jpa-hikari-pool # 指定连接池名字
+      max-lifetime: 1800000 # 最长生命周期
+      maximum-pool-size: 10 # 池中最大连接数
+      minimum-idle: 10 # 最小连接数
+      connection-test-query: select 1 from dual # 连接探活
+      auto-commit: true
+      # 多数据源连接池配置
+      db1:
+        pool-name: jpa-hikari-pool-db1
+        maximum-pool-size: 8
+      db2:
+        pool-name: jpa-hikari-pool-db2
+        maximum-pool-size: 4
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    open-in-view: false
+  h2:
+    console:
+      # 开启 h2 数据库控制台
+      enabled: true
+      path: /h2-console
+logging:
+  level:
+    # 连接池日志
+    com.zaxxer.hikari.HikariConfig: DEBUG
+    com.zaxxer.hikari: TRACE
+    # JPA 事务日志
+    org.springframework.orm.jpa: DEBUG
+    org.springframework.transaction: TRACE
+    org.hibernate.engine.transaction.internal.TransactionImpl: DEBUG
