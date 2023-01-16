@@ -12,7 +12,10 @@ spring:
   redis:
     host: localhost
     port: 6379
+    # 密码默认为空
+    password:
+    timeout: 5000
   r2dbc:
-    url: r2dbc:mysql://127.0.0.1:3306/r2dbcs?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    url: r2dbc:mysql://127.0.0.1:3306/r2dbc_db?useUnicode=true&characterEncoding=UTF-8&useSSL=false
     username: root
     password: 123456
