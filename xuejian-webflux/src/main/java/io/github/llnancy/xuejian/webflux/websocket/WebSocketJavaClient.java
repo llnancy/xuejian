@@ -17,11 +17,15 @@ import java.time.Duration;
 public class WebSocketJavaClient {
 
     public static void main(String[] args) {
+        // ReactorNettyWebSocketClient 是 WebFlux 默认 Reactor Netty 库提供的 WebSocketClient 实现
         WebSocketClient client = new ReactorNettyWebSocketClient();
+        // 与 ws://localhost:8080/echo 建立 WebSocket 协议连接。
         client.execute(
                 URI.create("ws://localhost:8080/echo"),
+                // send 方法发送字符串至服务端
                 session -> session.send(Flux.just(session.textMessage("websocket")))
                         .thenMany(
+                                // receive 方法接收服务端的响应
                                 session.receive()
                                         .take(1)
                                         .map(WebSocketMessage::getPayloadAsText)
