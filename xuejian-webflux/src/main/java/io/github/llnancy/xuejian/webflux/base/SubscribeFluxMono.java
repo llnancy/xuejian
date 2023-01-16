@@ -8,7 +8,7 @@ import reactor.core.publisher.Flux;
  * @author sunchaser admin@lilu.org.cn
  * @since JDK8 2023/1/13
  */
-public class FluxMonoSubscribe {
+public class SubscribeFluxMono {
 
     public static void main(String[] args) {
         // 生成 3 个元素的序列
