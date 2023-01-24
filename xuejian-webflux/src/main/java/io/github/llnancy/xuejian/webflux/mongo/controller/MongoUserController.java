@@ -1,7 +1,7 @@
 package io.github.llnancy.xuejian.webflux.mongo.controller;
 
 import io.github.llnancy.xuejian.webflux.mongo.entity.MongoUser;
-import io.github.llnancy.xuejian.webflux.mongo.repository.MongoUserRepository;
+import io.github.llnancy.xuejian.webflux.mongo.service.MongoUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +14,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 /**
- * mongo user controller
+ * {@link MongoUser} controller
  *
  * @author sunchaser admin@lilu.org.cn
  * @since JDK8 2023/1/12
@@ -24,25 +24,25 @@ import reactor.core.publisher.Mono;
 @RequestMapping("/mongo")
 public class MongoUserController {
 
-    private final MongoUserRepository repository;
+    private final MongoUserService service;
 
     @PostMapping("/user")
     public Mono<MongoUser> save(@RequestBody MongoUser user) {
-        return repository.save(user);
+        return service.save(user);
     }
 
     @GetMapping("/user/{id}")
     public Mono<MongoUser> findById(@PathVariable String id) {
-        return repository.findById(id);
+        return service.findById(id);
     }
 
     @GetMapping("/users")
     public Flux<MongoUser> findAll() {
-        return repository.findAll();
+        return service.findAll();
     }
 
     @DeleteMapping("/user/{id}")
     public Mono<Void> deleteById(@PathVariable String id) {
-        return repository.deleteById(id);
+        return service.deleteById(id);
     }
 }
