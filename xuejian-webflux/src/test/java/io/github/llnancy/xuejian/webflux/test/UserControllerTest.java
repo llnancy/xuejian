@@ -16,13 +16,13 @@ import org.springframework.web.reactive.function.BodyInserters;
 import reactor.core.publisher.Mono;
 
 /**
- * test {@link UserController}
+ * {@link UserController} test
  *
  * @author sunchaser admin@lilu.org.cn
  * @since JDK8 2023/1/12
  */
 @WebFluxTest(value = UserController.class)
-public class UserControllerTest {
+class UserControllerTest {
 
     @Autowired
     private WebTestClient webTestClient;
