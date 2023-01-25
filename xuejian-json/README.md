@@ -1,12 +1,12 @@
-- [SpringBoot 整合 JSON 序列化](#springboot-整合-json-序列化)
-- [创建工程](#创建工程)
-- [编写 Controller](#编写-controller)
-- [使用 jackson](#使用-jackson)
-- [使用 gson](#使用-gson)
-- [使用 fastjson](#使用-fastjson)
-- [总结](#总结)
+* [Spring Boot 整合 JSON 序列化](#spring-boot-整合-json-序列化)
+* [创建工程](#创建工程)
+* [编写 Controller](#编写-controller)
+* [使用 jackson](#使用-jackson)
+* [使用 gson](#使用-gson)
+* [使用 fastjson](#使用-fastjson)
+* [总结](#总结)
 
-# SpringBoot 整合 JSON 序列化
+# Spring Boot 整合 JSON 序列化
 
 在使用 `Spring Boot` 开发 `web` 应用时，我们只需给控制器添加 `@RestController` 注解，接口就能够返回 `json` 格式的数据。实际上该注解是一个组合注解，真正起作用的是 `@ResponseBody`，而它的底层又是由 `HttpMessageConverter` 进行支撑。
 
