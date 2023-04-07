@@ -27,9 +27,9 @@ public class DelayedMessageConfig {
     private RabbitMQProperties rabbitMQProperties;
 
     /**
-     * x-delayed-message类型的交换机
+     * x-delayed-message 类型的交换机
      *
-     * @return CustomExchange
+     * @return {@link CustomExchange}
      */
     @Bean
     public CustomExchange delayedExchange() {
@@ -41,7 +41,7 @@ public class DelayedMessageConfig {
     /**
      * 延迟队列
      *
-     * @return Queue
+     * @return {@link Queue}
      */
     @Bean
     public Queue delayedQueue() {
@@ -52,7 +52,7 @@ public class DelayedMessageConfig {
     /**
      * 延迟交换机和队列进行绑定
      *
-     * @return Binding
+     * @return {@link Binding}
      */
     @Bean
     public Binding bindingDelayedQueueExchange() {

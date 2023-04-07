@@ -52,7 +52,7 @@ public class NormalConfig {
                 .deadLetterRoutingKey(rabbitMQProperties.getDeadLetterRoutingKey())
                 .maxLength(6)
                 // .ttl(10000) // TTL：单位毫秒
-                // .maxPriority(10) // 优先级：0~255范围内
+                // .maxPriority(10) // 优先级：0~255 范围内
                 .build();
     }
 

@@ -111,9 +111,9 @@
 spring:
   rabbitmq:
     host: 127.0.0.1 # host
-    port: 5672 # 端口号，默认值5672。
-    username: guest # 用户名，默认值guest。
-    password: guest # 密码，默认值guest。
+    port: 5672 # 端口号，默认值 5672。
+    username: guest # 用户名，默认值 guest。
+    password: guest # 密码，默认值 guest。
     virtual-host: / # 虚拟主机，默认值/。
 ```
 

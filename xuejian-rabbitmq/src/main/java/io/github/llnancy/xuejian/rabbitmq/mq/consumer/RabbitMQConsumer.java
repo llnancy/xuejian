@@ -19,7 +19,7 @@ import java.io.IOException;
 @Component
 @RabbitListener(queues = {
         "${my.rabbitmq.topic-queue-name}",
-        // "${my.rabbitmq.normal-queue-name}",
+        "${my.rabbitmq.normal-queue-name}",
         "${my.rabbitmq.dead-letter-queue-name}",
         "${my.rabbitmq.delayed-queue-name}"
 })
@@ -34,12 +34,12 @@ public class RabbitMQConsumer {
             if ("error".equals(msg)) {
                 throw new RuntimeException("error");
             }
-            // 手动ack，肯定应答，multiple=false表示不批量
+            // 手动 ack，肯定应答，multiple=false 表示不批量
             channel.basicAck(deliveryTag, false);
         } catch (Exception e) {
             log.error("RabbitMQ - [RabbitMQConsumer] 消费端 消费消息时发生异常", e);
             try {
-                // 否定应答，multiple=false表示不批量，requeue=false表示不重新投递至原队列
+                // 否定应答，multiple=false 表示不批量，requeue=false 表示不重新投递至原队列
                 channel.basicNack(deliveryTag, false, false);
             } catch (IOException ex) {
                 log.error("RabbitMQ - [RabbitMQConsumer] 消费端 否定应答消息时发生异常", ex);
@@ -55,12 +55,12 @@ public class RabbitMQConsumer {
             if ("error".equals(msg.getMsg())) {
                 throw new RuntimeException("error");
             }
-            // 手动ack，肯定应答，multiple=false表示不批量
+            // 手动 ack，肯定应答，multiple=false 表示不批量
             channel.basicAck(deliveryTag, false);
         } catch (Exception e) {
             log.error("RabbitMQ - [RabbitMQConsumer] 消费端 消费消息时发生异常", e);
             try {
-                // 否定应答，multiple=false表示不批量，requeue=false表示不重新投递至原队列，如果配置了死信则会转发到死信交换机。
+                // 否定应答，multiple=false 表示不批量，requeue=false 表示不重新投递至原队列，如果配置了死信则会转发到死信交换机。
                 channel.basicNack(deliveryTag, false, false);
             } catch (IOException ex) {
                 log.error("RabbitMQ - [RabbitMQConsumer] 消费端 否定应答消息时发生异常", ex);

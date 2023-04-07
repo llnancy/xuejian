@@ -25,7 +25,7 @@ public class RabbitMQConfig {
      * 消息生产端 RabbitTemplate 会通过 RabbitTemplateConfigurer 自动注入该 Bean
      * 消息消费端 SimpleRabbitListenerContainerFactory 会自动注入该 Bean
      *
-     * @return Jackson2JsonMessageConverter
+     * @return {@link Jackson2JsonMessageConverter}
      * @see org.springframework.amqp.support.converter.Jackson2JsonMessageConverter
      * @see org.springframework.boot.autoconfigure.amqp.RabbitTemplateConfigurer
      * @see org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory

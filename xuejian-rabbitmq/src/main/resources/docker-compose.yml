@@ -1,0 +1,12 @@
+version: "3.9"
+
+services:
+  rabbitmq-management:
+    restart: always
+    image: llnancy/rabbitmq-management-delayed:latest
+    container_name: rabbitmq
+    ports:
+      - 15672:15672
+      - 5672:5672
+    environment:
+      - TZ=Asia/Shanghai

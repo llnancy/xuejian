@@ -19,6 +19,7 @@ public class RabbitMQProducer {
 
     @Autowired
     private RabbitTemplate rabbitTemplate;
+
     @Autowired
     private RabbitMQProperties rabbitMQProperties;
 
@@ -35,8 +36,8 @@ public class RabbitMQProducer {
         rabbitTemplate.convertAndSend(
                 rabbitMQProperties.getTopicExchangeName(),
                 routingKey,
-                msgDTO,
-                new CorrelationData()
+                msgDTO
+                // new CorrelationData()
         );
     }
 
@@ -47,7 +48,7 @@ public class RabbitMQProducer {
                 msgDTO,
                 message -> {
                     MessageProperties messageProperties = message.getMessageProperties();
-                    messageProperties.setExpiration(expire);// 消息过期时间，单位ms。
+                    messageProperties.setExpiration(expire);// 消息过期时间，单位 ms。
                     return message;
                 },
                 new CorrelationData()
@@ -70,8 +71,8 @@ public class RabbitMQProducer {
                 msgDTO,
                 message -> {
                     MessageProperties messageProperties = message.getMessageProperties();
-                    messageProperties.setDelay(delay); // 消息延迟时间，单位ms。
-                    messageProperties.setPriority(5);
+                    messageProperties.setDelay(delay); // 消息延迟时间，单位 ms。
+                    messageProperties.setPriority(5); // 设置优先级
                     return message;
                 },
                 new CorrelationData()

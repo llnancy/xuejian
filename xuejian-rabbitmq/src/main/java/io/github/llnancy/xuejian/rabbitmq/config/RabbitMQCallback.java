@@ -24,6 +24,7 @@ public class RabbitMQCallback implements InitializingBean, RabbitTemplate.Confir
 
     @Autowired
     private RabbitTemplate rabbitTemplate;
+
     @Autowired
     private RabbitMQProperties rabbitMQProperties;
 
@@ -45,9 +46,9 @@ public class RabbitMQCallback implements InitializingBean, RabbitTemplate.Confir
     public void confirm(CorrelationData correlationData, boolean ack, String cause) {
         String id = Objects.isNull(correlationData) ? "" : correlationData.getId();
         if (ack) {
-            log.info("RabbitMQ - [ConfirmCallback] 生产端ID={}的消息投递至交换机 成功", id);
+            log.info("RabbitMQ - [ConfirmCallback] 生产端 ID={}的消息投递至交换机-成功", id);
         } else {
-            log.error("RabbitMQ - [ConfirmCallback] 生产端ID={}的消息投递至交换机 失败，原因：{}", id, cause);
+            log.error("RabbitMQ - [ConfirmCallback] 生产端 ID={}的消息投递至交换机-失败，原因：{}", id, cause);
         }
     }
 
@@ -61,7 +62,7 @@ public class RabbitMQCallback implements InitializingBean, RabbitTemplate.Confir
     @Override
     public void returnedMessage(@NonNull ReturnedMessage returned) {
         if (rabbitMQProperties.getDelayedExchangeName().equals(returned.getExchange())) {
-            // 处理rabbitmq-delayed-message-exchange插件的延迟交换机回调
+            // 处理 rabbitmq-delayed-message-exchange 插件的延迟交换机回调
             return;
         }
         log.error("RabbitMQ - [ReturnsCallback] 交换机路由消息至队列失败，消息退回发起者，消息内容为：{}", returned);
